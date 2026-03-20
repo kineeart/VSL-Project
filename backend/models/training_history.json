@@ -1,0 +1,9 @@
+{
+  "best_val_top1": 0.5930470347648262,
+  "best_val_top5": 0.6503067484662577,
+  "minutes": 23.64146093130112,
+  "num_classes": 489,
+  "train_samples": 3470,
+  "val_samples": 489,
+  "num_features": 4995
+}
