@@ -1,8 +1,7 @@
 # Vietnamese Sign Language Recognition
 # Nhận dạng Ngôn ngữ Ký hiệu Việt Nam
 
-> **Bản quyền © 2026 — Lưu Vĩnh Thắng**
-> Thực hiện cho **Kiên Nguyễn**
+
 
 Hệ thống nhận dạng ngôn ngữ ký hiệu Việt Nam sử dụng AI (PyTorch + CUDA GPU), hỗ trợ nhận dạng realtime qua camera, upload video, và huấn luyện với GPU.
 
@@ -211,5 +210,3 @@ python train_gpu.py
 - [x] Script tự động: `start.bat`, `stop.bat`, `train.bat`
 
 ---
-
-**© 2026 Lưu Vĩnh Thắng — Thực hiện cho Kiên Nguyễn**
