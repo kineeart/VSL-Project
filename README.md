@@ -18,7 +18,7 @@ Hệ thống nhận dạng ngôn ngữ ký hiệu Việt Nam sử dụng AI (PyT
 | Thành phần | Công nghệ |
 |---|---|
 | Frontend | React 19, Vite 6, i18next, CSS Variables |
-| Backend | Python 3.12, FastAPI, Uvicorn |
+| Backend | Python 3.10, FastAPI, Uvicorn |
 | AI/ML | PyTorch (CUDA GPU), MediaPipe Holistic (model_complexity=2) |
 | Model | Multi-scale CNN + BiLSTM + Multi-head Attention + Cosine Classifier |
 | Dữ liệu | OpenCV, NumPy, scikit-learn, openpyxl |
@@ -112,7 +112,7 @@ Video -> MediaPipe Holistic (complexity=2, confidence=0.7)
 
 ## Yêu cầu hệ thống
 
-- Python 3.12+
+- Python 3.10+
 - Node.js 18+
 - NVIDIA GPU với CUDA (RTX 3060+ / 8GB VRAM)
 - RAM 32GB+
@@ -123,7 +123,7 @@ Video -> MediaPipe Holistic (complexity=2, confidence=0.7)
 
 ### 1) Chuẩn bị và sử dụng repo
 
-1. Cài Python 3.12+ và Node.js 18+.
+1. Cài Python 3.10+ và Node.js 18+.
 2. Cài dependencies backend và frontend theo hướng dẫn bên dưới.
 3. Khởi động backend + frontend bằng `start.bat` để dùng giao diện web.
 4. Nếu muốn train lại mô hình, chạy `train.bat`.
