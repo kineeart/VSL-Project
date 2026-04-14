@@ -1,0 +1,38 @@
+{
+  "version": "1.0",
+  "description": "Sample sentence-level dataset for VSL benchmark",
+  "samples": [
+    {
+      "sample_id": "SENT_0001",
+      "video_path": "Videos/sentences/SENT_0001.mp4",
+      "split": "test",
+      "signer_id": "P01",
+      "dialect": "south",
+      "recording_env": "home",
+      "sentence_text": "toi la nhan vien",
+      "sentence_gloss": ["toi", "la", "nhan_vien"],
+      "segments": [
+        {"gloss": "toi", "start_ms": 0, "end_ms": 800},
+        {"gloss": "la", "start_ms": 800, "end_ms": 1400},
+        {"gloss": "nhan_vien", "start_ms": 1400, "end_ms": 2500}
+      ],
+      "notes": "sample for evaluation"
+    },
+    {
+      "sample_id": "SENT_0002",
+      "video_path": "Videos/sentences/SENT_0002.mp4",
+      "split": "test",
+      "signer_id": "P02",
+      "dialect": "north",
+      "recording_env": "classroom",
+      "sentence_text": "dia chi o dau",
+      "sentence_gloss": ["dia_chi", "o", "dau"],
+      "segments": [
+        {"gloss": "dia_chi", "start_ms": 0, "end_ms": 1000},
+        {"gloss": "o", "start_ms": 1000, "end_ms": 1500},
+        {"gloss": "dau", "start_ms": 1500, "end_ms": 2400}
+      ],
+      "notes": "sample for evaluation"
+    }
+  ]
+}

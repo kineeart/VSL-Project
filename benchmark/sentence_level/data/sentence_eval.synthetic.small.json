@@ -1,0 +1,57 @@
+{
+  "num_gt_samples": 10,
+  "num_evaluated": 10,
+  "num_missing_predictions": 0,
+  "missing_prediction_ids": [],
+  "exact_match_text": 0.0,
+  "exact_match_gloss": 0.0,
+  "wer": 0.9333333333333332,
+  "cer": 0.7956043166863067,
+  "segment_f1@0.5": 0.06666666666666667,
+  "segment_precision@0.5": 0.06666666666666667,
+  "segment_recall@0.5": 0.06666666666666667,
+  "split": "test",
+  "by_dialect": {
+    "unknown": {
+      "num_gt_samples": 10,
+      "num_evaluated": 10,
+      "num_missing_predictions": 0,
+      "missing_prediction_ids": [],
+      "exact_match_text": 0.0,
+      "exact_match_gloss": 0.0,
+      "wer": 0.9333333333333332,
+      "cer": 0.7956043166863067,
+      "segment_f1@0.5": 0.06666666666666667,
+      "segment_precision@0.5": 0.06666666666666667,
+      "segment_recall@0.5": 0.06666666666666667
+    }
+  },
+  "by_signer": {
+    "T": {
+      "num_gt_samples": 1,
+      "num_evaluated": 1,
+      "num_missing_predictions": 0,
+      "missing_prediction_ids": [],
+      "exact_match_text": 0.0,
+      "exact_match_gloss": 0.0,
+      "wer": 0.6666666666666666,
+      "cer": 0.7037037037037037,
+      "segment_f1@0.5": 0.3333333333333333,
+      "segment_precision@0.5": 0.3333333333333333,
+      "segment_recall@0.5": 0.3333333333333333
+    },
+    "U": {
+      "num_gt_samples": 9,
+      "num_evaluated": 9,
+      "num_missing_predictions": 0,
+      "missing_prediction_ids": [],
+      "exact_match_text": 0.0,
+      "exact_match_gloss": 0.0,
+      "wer": 0.9629629629629629,
+      "cer": 0.8058154959065958,
+      "segment_f1@0.5": 0.037037037037037035,
+      "segment_precision@0.5": 0.037037037037037035,
+      "segment_recall@0.5": 0.037037037037037035
+    }
+  }
+}

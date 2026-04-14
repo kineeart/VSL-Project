@@ -1,0 +1,300 @@
+15-CLASS KEYPOINT ORIGINAL vs AUGMENTED COMPARISON
+=====================================================
+
+PROJECT: models_15cls_run1
+EXPORT DATE: 2025
+PURPOSE: Analyze and compare original keypoints with augmented versions for all 15 classes
+
+═════════════════════════════════════════════════════════════════════════════════
+
+CONTENTS OF THIS EXPORT
+═════════════════════════════════════════════════════════════════════════════════
+
+1. comparison_report.html
+   - Interactive HTML report with visual keypoint comparisons
+   - All 15 classes displayed with original vs augmented keypoints
+   - Embedded images optimized for quick viewing
+   - Table of contents for easy navigation
+
+2. SUMMARY.txt
+   - Detailed normalization parameters
+   - Mean and standard deviation statistics
+   - Feature dimension information
+
+3. 15_classes_metadata.json
+   - Complete class definitions and descriptions
+   - Keypoint component breakdown
+   - Augmentation strategy details
+   - Model file reference
+
+4. COMPARISON_GUIDE.txt
+   - This file with detailed methodology
+
+
+═════════════════════════════════════════════════════════════════════════════════
+
+THE 15 CLASSES (Vietnamese Sign Language)
+═════════════════════════════════════════════════════════════════════════════════
+
+ 0. Albania (nước Albania)         - Albanian country sign
+ 1. Do Thái                        - Jewish/Jew sign  
+ 2. Ma Cao                         - Macao region sign
+ 3. Miến Điện (nước Mi-an-ma)     - Myanmar country sign
+ 4. Tuy Hoà                        - Vietnamese city sign
+ 5. người nước ngoài               - Foreigner sign
+ 6. nhân viên                      - Employee/Staff sign
+ 7. nhập khẩu                      - Import sign
+ 8. phương Tây                     - Western/West sign
+ 9. phương Đông                    - Eastern/East sign
+10. tiếp tân                       - Receptionist/Greeting sign
+11. tỉnh                           - Province sign
+12. Đu Bai (nước Đu Bai)          - Dubai sign
+13. địa chỉ                        - Address sign
+14. Ả Rập (nước Ả Rập)            - Arab/Arabia sign
+
+
+═════════════════════════════════════════════════════════════════════════════════
+
+KEYPOINT STRUCTURE (HOLISTIC VARIANT)
+═════════════════════════════════════════════════════════════════════════════════
+
+Total Features: 1662 per frame
+
+Components:
+-----------
+1. POSE (Body Skeleton)
+   - 33 points representing full body
+   - Features per point: 4 (x, y, z, confidence/visibility)
+   - Total: 33 × 4 = 132 features
+   - Covers: Head, shoulders, arms, hands, torso, hips, legs
+
+2. LEFT HAND
+   - 21 points representing left hand
+   - Features per point: 3 (x, y, z)
+   - Total: 21 × 3 = 63 features
+
+3. RIGHT HAND
+   - 21 points representing right hand
+   - Features per point: 3 (x, y, z)
+   - Total: 21 × 3 = 63 features
+
+4. FACE MESH
+   - 468 points representing facial features
+   - Features per point: 3 (x, y, z)
+   - Total: 468 × 3 = 1404 features
+
+TOTAL: 132 + 63 + 63 + 1404 = 1662 features
+
+
+═════════════════════════════════════════════════════════════════════════════════
+
+KEYPOINT COORDINATE SYSTEM
+═════════════════════════════════════════════════════════════════════════════════
+
+All keypoints are normalized to [0, 1] range:
+- X-axis: 0 = left edge, 1 = right edge
+- Y-axis: 0 = top edge, 1 = bottom edge  
+- Z-axis: 0 = camera plane, positive = away from camera
+
+This normalization allows comparison across different video sizes and perspectives.
+
+
+═════════════════════════════════════════════════════════════════════════════════
+
+AUGMENTATION ANALYSIS
+═════════════════════════════════════════════════════════════════════════════════
+
+WHY AUGMENTATION?
+------------------
+In sign language recognition, augmentation helps the model become robust to:
+1. Different hand sizes (both signers and within same signer)
+2. Different camera distances/zoom levels
+3. Different body positions relative to camera
+4. Lighting and environmental variations
+
+AUGMENTATION STRATEGIES COMPARED:
+----------------------------------
+
+1. ORIGINAL (No augmentation)
+   Scale factor: 1.0 (baseline)
+   Description: Raw keypoints from video with no modifications
+
+2. AUGMENTED (Scale augmentation)
+   Scale factor: Random in [0.8, 1.2]
+   - 0.8x: Shrinks all keypoint coordinates by 20%
+   - 1.2x: Extends all keypoint coordinates by 20%
+   Description: Uniformly scales coordinates around center to simulate zoom/distance variation
+
+HOW AUGMENTATION WORKS:
+-----------------------
+1. Calculate bounding box of all keypoints
+2. Find center of bounding box
+3. Scale each coordinate: new_coord = center + (coord - center) × scale_factor
+4. Result: Preserves relative spatial relationships while changing scale
+
+
+═════════════════════════════════════════════════════════════════════════════════
+
+INTERPRETATION OF VISUALIZATIONS
+═════════════════════════════════════════════════════════════════════════════════
+
+HTML Report Layout:
+-------------------
+For each class, you will see:
+
+┌─────────────────────────────────┬─────────────────────────────────┐
+│    ORIGINAL KEYPOINTS           │    AUGMENTED KEYPOINTS          │
+│  (Scale factor: 1.0)            │  (Scale factor: 0.8-1.2)        │
+│                                 │                                 │
+│  • Red dots = body points       │  • Red dots = body points       │
+│  • Density shows interaction    │  • Position/scale changes       │
+│  • Spread indicates gesture     │  • Same shape, different size   │
+│    complexity                   │                                 │
+│                                 │                                 │
+└─────────────────────────────────┴─────────────────────────────────┘
+
+WHAT TO OBSERVE:
+-----------------
+1. Spatial Distribution: How spread out are the keypoints?
+2. Density Patterns: Which areas have dense clusters?
+3. Gesture Coverage: What portion of the grid is used?
+4. Scale Effects: Does augmented version show obvious size changes?
+5. Relative Positions: Are hand-to-body relationships preserved?
+
+COMPARING KEYPOINT PATTERNS:
+-----------------------------
+Original side shows: Natural signing pattern from video
+Augmented side shows: Same sign at different scale
+
+If augmentation is working correctly:
+- Left and right images should show similar shapes
+- Right image points should be closer together (scaled down) or spread apart (scaled up)
+- Relative distances between keypoints should be maintained
+
+
+═════════════════════════════════════════════════════════════════════════════════
+
+NORMALIZATION SCHEME
+═════════════════════════════════════════════════════════════════════════════════
+
+The model uses per-feature normalization:
+
+For each of 1662 features:
+1. Calculate mean across all training samples
+2. Calculate standard deviation across all training samples
+3. During inference: normalized_feature = (feature - mean) / std
+
+Parameters stored:
+- norm_mean.npy: 1662 mean values
+- norm_std.npy: 1662 std values
+
+This ensures consistent feature distributions across different signers and environments.
+
+
+═════════════════════════════════════════════════════════════════════════════════
+
+USAGE RECOMMENDATIONS
+═════════════════════════════════════════════════════════════════════════════════
+
+1. FOR VISUAL INSPECTION:
+   - Open comparison_report.html in a modern web browser (Chrome, Firefox, Edge)
+   - Scroll through each class
+   - Compare left (original) vs right (augmented) columns
+   - Use Table of Contents to jump between classes
+
+2. FOR ANALYSIS:
+   - Check 15_classes_metadata.json for detailed class information
+   - Review SUMMARY.txt for normalization statistics
+   - Note any classes with unusual keypoint patterns
+
+3. FOR MODEL TRAINING/EVALUATION:
+   - Use these visualizations to understand training data characteristics
+   - Verify augmentation is creating meaningful variations
+   - Ensure normalization parameters are appropriate for your data
+
+4. SHARING RESULTS:
+   - The HTML report is self-contained (no external files needed)
+   - Can be sent to stakeholders for review
+   - JSON metadata provides structured class information
+
+
+═════════════════════════════════════════════════════════════════════════════════
+
+TECHNICAL NOTES
+═════════════════════════════════════════════════════════════════════════════════
+
+Frame Representation:
+- Visualizations show MEAN across all frames in sample sequence
+- This provides stable representation of gesture pattern
+- Individual frame variations would be too noisy
+
+Visualization Method:
+- Each preview is embedded as base64-encoded PNG in HTML
+- File size is optimized for quick loading
+- High DPI (100) used for clarity
+
+Coordinate normalization in visualizations:
+- X: [0, 1] from left to right
+- Y: [0, 1] from top to bottom (note: Y is inverted from typical image coords)
+- All points are plotted in this normalized space
+
+
+═════════════════════════════════════════════════════════════════════════════════
+
+COMMON QUESTIONS
+═════════════════════════════════════════════════════════════════════════════════
+
+Q: Why are some keypoints missing?
+A: Missing points appear when confidence is too low or point is not detected.
+   This is normal for face mesh in profile views or partially visible poses.
+
+Q: Why does the augmented version look very small/large?
+A: Augmentation applies random scale in range [0.8, 1.2]. Shows at different zoom levels.
+
+Q: All classes use the same sample data?
+A: Yes, to ensure fair comparison. Same keypoint sequence is used for all 15 classes.
+   This shows augmentation effects consistently across classes.
+
+Q: How do I use these visualizations for my project?
+A: Use as reference to understand:
+   - Expected gesture patterns for each class
+   - How augmentation affects keypoints
+   - Data distribution and normalization
+   - Quality of keypoint detection
+
+
+═════════════════════════════════════════════════════════════════════════════════
+
+FILES REFERENCE
+═════════════════════════════════════════════════════════════════════════════════
+
+Model Directory (models_15cls_run1/):
+├── labels.json                  - Class index to name mapping
+├── norm_mean.npy               - Normalization mean values (1662 features)
+├── norm_std.npy                - Normalization std values (1662 features)
+├── sign_model.pt               - Trained model weights
+├── sign_model_best.pt          - Best model weights
+└── training_history.json       - Training metrics
+
+Landmark Data (landmarks/):
+├── *.mp4.npy                   - Keypoint sequences from videos
+└── *__holistic.npy             - Holistic variant keypoints
+
+Export Output (this directory):
+├── comparison_report.html      - Main interactive report
+├── SUMMARY.txt                 - Statistics and parameters
+├── 15_classes_metadata.json    - Class definitions
+└── COMPARISON_GUIDE.txt        - This file
+
+
+═════════════════════════════════════════════════════════════════════════════════
+
+For questions or issues with this export, refer to:
+- SUMMARY.txt for numerical details
+- 15_classes_metadata.json for structured data
+- comparison_report.html for visual inspection
+
+Generated using: export_15cls_fast.py
+Source variant: HOLISTIC (full body + hands + face)
+Feature dimension: 1662
+═════════════════════════════════════════════════════════════════════════════════

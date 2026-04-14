@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vsl.local/sentence_dataset.schema.json",
+  "title": "VSL Sentence Dataset",
+  "type": "object",
+  "required": ["version", "samples"],
+  "properties": {
+    "version": { "type": "string" },
+    "description": { "type": "string" },
+    "samples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "sample_id",
+          "video_path",
+          "split",
+          "signer_id",
+          "dialect",
+          "sentence_text",
+          "sentence_gloss",
+          "segments"
+        ],
+        "properties": {
+          "sample_id": { "type": "string" },
+          "video_path": { "type": "string" },
+          "split": {
+            "type": "string",
+            "enum": ["train", "val", "test"]
+          },
+          "signer_id": { "type": "string" },
+          "dialect": {
+            "type": "string",
+            "enum": ["north", "central", "south", "mixed", "unknown"]
+          },
+          "recording_env": {
+            "type": "string",
+            "enum": ["studio", "classroom", "home", "outdoor", "unknown"]
+          },
+          "sentence_text": { "type": "string" },
+          "sentence_gloss": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 1
+          },
+          "segments": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["gloss", "start_ms", "end_ms"],
+              "properties": {
+                "gloss": { "type": "string" },
+                "start_ms": { "type": "number", "minimum": 0 },
+                "end_ms": { "type": "number", "minimum": 0 }
+              }
+            }
+          },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+**/node_modules
+**/.expo
+**/.expo/**
+**/.cache
+**/.cache/**
+.git
+.git/**
+.vscode
+.claude

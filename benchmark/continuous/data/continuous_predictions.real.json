@@ -1,0 +1,643 @@
+{
+  "version": "1.0",
+  "model_name": "backend_api_predict_continuous_video",
+  "predictions": [
+    {
+      "sample_id": "CONT_00003",
+      "pred_sentence_text": "địa chỉ",
+      "pred_sentence_gloss": [
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00006",
+      "pred_sentence_text": "địa chỉ ghen tị lung tung Miến Điện (nước Mi-an-ma)",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "ghen tị",
+        "lung tung",
+        "Miến Điện (nước Mi-an-ma)"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00009",
+      "pred_sentence_text": "lung tung địa chỉ",
+      "pred_sentence_gloss": [
+        "lung tung",
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00012",
+      "pred_sentence_text": "địa chỉ ghen tị lung tung Miến Điện (nước Mi-an-ma)",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "ghen tị",
+        "lung tung",
+        "Miến Điện (nước Mi-an-ma)"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00015",
+      "pred_sentence_text": "ghen tị địa chỉ Miến Điện (nước Mi-an-ma)",
+      "pred_sentence_gloss": [
+        "ghen tị",
+        "địa chỉ",
+        "Miến Điện (nước Mi-an-ma)"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00018",
+      "pred_sentence_text": "địa chỉ lung tung",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "lung tung"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00021",
+      "pred_sentence_text": "lung tung Miến Điện (nước Mi-an-ma)",
+      "pred_sentence_gloss": [
+        "lung tung",
+        "Miến Điện (nước Mi-an-ma)"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00024",
+      "pred_sentence_text": "địa chỉ lung tung địa chỉ",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "lung tung",
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00027",
+      "pred_sentence_text": "lung tung",
+      "pred_sentence_gloss": [
+        "lung tung"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00030",
+      "pred_sentence_text": "địa chỉ lung tung địa chỉ",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "lung tung",
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00033",
+      "pred_sentence_text": "địa chỉ Miến Điện (nước Mi-an-ma)",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "Miến Điện (nước Mi-an-ma)"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00036",
+      "pred_sentence_text": "lung tung Miến Điện (nước Mi-an-ma) lung tung",
+      "pred_sentence_gloss": [
+        "lung tung",
+        "Miến Điện (nước Mi-an-ma)",
+        "lung tung"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00039",
+      "pred_sentence_text": "lung tung địa chỉ lung tung địa chỉ",
+      "pred_sentence_gloss": [
+        "lung tung",
+        "địa chỉ",
+        "lung tung",
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00042",
+      "pred_sentence_text": "địa chỉ",
+      "pred_sentence_gloss": [
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00045",
+      "pred_sentence_text": "lung tung địa chỉ",
+      "pred_sentence_gloss": [
+        "lung tung",
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00048",
+      "pred_sentence_text": "ghen tị lung tung địa chỉ",
+      "pred_sentence_gloss": [
+        "ghen tị",
+        "lung tung",
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00051",
+      "pred_sentence_text": "địa chỉ địa chỉ lung tung",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "địa chỉ",
+        "lung tung"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00054",
+      "pred_sentence_text": "địa chỉ ghen tị lung tung",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "ghen tị",
+        "lung tung"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00057",
+      "pred_sentence_text": "địa chỉ lung tung Miến Điện (nước Mi-an-ma) địa chỉ",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "lung tung",
+        "Miến Điện (nước Mi-an-ma)",
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00060",
+      "pred_sentence_text": "địa chỉ",
+      "pred_sentence_gloss": [
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00063",
+      "pred_sentence_text": "địa chỉ lung tung địa chỉ",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "lung tung",
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00066",
+      "pred_sentence_text": "địa chỉ Miến Điện (nước Mi-an-ma) lung tung Miến Điện (nước Mi-an-ma)",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "Miến Điện (nước Mi-an-ma)",
+        "lung tung",
+        "Miến Điện (nước Mi-an-ma)"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00069",
+      "pred_sentence_text": "địa chỉ ghen tị lung tung Miến Điện (nước Mi-an-ma) địa chỉ",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "ghen tị",
+        "lung tung",
+        "Miến Điện (nước Mi-an-ma)",
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00072",
+      "pred_sentence_text": "địa chỉ Miến Điện (nước Mi-an-ma) lung tung địa chỉ",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "Miến Điện (nước Mi-an-ma)",
+        "lung tung",
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00075",
+      "pred_sentence_text": "địa chỉ lung tung ghen tị",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "lung tung",
+        "ghen tị"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00078",
+      "pred_sentence_text": "Miến Điện (nước Mi-an-ma) ghen tị",
+      "pred_sentence_gloss": [
+        "Miến Điện (nước Mi-an-ma)",
+        "ghen tị"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00081",
+      "pred_sentence_text": "địa chỉ lung tung",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "lung tung"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00084",
+      "pred_sentence_text": "địa chỉ địa chỉ",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00087",
+      "pred_sentence_text": "địa chỉ lung tung địa chỉ lung tung",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "lung tung",
+        "địa chỉ",
+        "lung tung"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00090",
+      "pred_sentence_text": "ghen tị",
+      "pred_sentence_gloss": [
+        "ghen tị"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00093",
+      "pred_sentence_text": "lung tung địa chỉ",
+      "pred_sentence_gloss": [
+        "lung tung",
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00096",
+      "pred_sentence_text": "lung tung địa chỉ lung tung địa chỉ",
+      "pred_sentence_gloss": [
+        "lung tung",
+        "địa chỉ",
+        "lung tung",
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00099",
+      "pred_sentence_text": "địa chỉ",
+      "pred_sentence_gloss": [
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00102",
+      "pred_sentence_text": "địa chỉ lung tung",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "lung tung"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00105",
+      "pred_sentence_text": "địa chỉ",
+      "pred_sentence_gloss": [
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00108",
+      "pred_sentence_text": "địa chỉ lung tung địa chỉ",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "lung tung",
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00111",
+      "pred_sentence_text": "lung tung địa chỉ",
+      "pred_sentence_gloss": [
+        "lung tung",
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00114",
+      "pred_sentence_text": "địa chỉ Miến Điện (nước Mi-an-ma) địa chỉ Miến Điện (nước Mi-an-ma)",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "Miến Điện (nước Mi-an-ma)",
+        "địa chỉ",
+        "Miến Điện (nước Mi-an-ma)"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00117",
+      "pred_sentence_text": "lung tung địa chỉ",
+      "pred_sentence_gloss": [
+        "lung tung",
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00120",
+      "pred_sentence_text": "địa chỉ lung tung địa chỉ lung tung",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "lung tung",
+        "địa chỉ",
+        "lung tung"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00123",
+      "pred_sentence_text": "địa chỉ",
+      "pred_sentence_gloss": [
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00126",
+      "pred_sentence_text": "địa chỉ lung tung địa chỉ địa chỉ",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "lung tung",
+        "địa chỉ",
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00129",
+      "pred_sentence_text": "địa chỉ Miến Điện (nước Mi-an-ma) lung tung",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "Miến Điện (nước Mi-an-ma)",
+        "lung tung"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00132",
+      "pred_sentence_text": "địa chỉ lung tung ghen tị",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "lung tung",
+        "ghen tị"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00135",
+      "pred_sentence_text": "lung tung",
+      "pred_sentence_gloss": [
+        "lung tung"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00138",
+      "pred_sentence_text": "địa chỉ",
+      "pred_sentence_gloss": [
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00141",
+      "pred_sentence_text": "địa chỉ Miến Điện (nước Mi-an-ma) lung tung địa chỉ",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "Miến Điện (nước Mi-an-ma)",
+        "lung tung",
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00144",
+      "pred_sentence_text": "ghen tị địa chỉ",
+      "pred_sentence_gloss": [
+        "ghen tị",
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00147",
+      "pred_sentence_text": "địa chỉ lung tung địa chỉ lung tung ghen tị",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "lung tung",
+        "địa chỉ",
+        "lung tung",
+        "ghen tị"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00150",
+      "pred_sentence_text": "lung tung Miến Điện (nước Mi-an-ma) địa chỉ",
+      "pred_sentence_gloss": [
+        "lung tung",
+        "Miến Điện (nước Mi-an-ma)",
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00153",
+      "pred_sentence_text": "lung tung địa chỉ lung tung địa chỉ",
+      "pred_sentence_gloss": [
+        "lung tung",
+        "địa chỉ",
+        "lung tung",
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00156",
+      "pred_sentence_text": "địa chỉ Miến Điện (nước Mi-an-ma) lung tung Miến Điện (nước Mi-an-ma)",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "Miến Điện (nước Mi-an-ma)",
+        "lung tung",
+        "Miến Điện (nước Mi-an-ma)"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00159",
+      "pred_sentence_text": "Miến Điện (nước Mi-an-ma) lung tung ghen tị",
+      "pred_sentence_gloss": [
+        "Miến Điện (nước Mi-an-ma)",
+        "lung tung",
+        "ghen tị"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00162",
+      "pred_sentence_text": "địa chỉ",
+      "pred_sentence_gloss": [
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00165",
+      "pred_sentence_text": "địa chỉ",
+      "pred_sentence_gloss": [
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00168",
+      "pred_sentence_text": "địa chỉ lung tung địa chỉ",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "lung tung",
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00171",
+      "pred_sentence_text": "địa chỉ địa chỉ",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00174",
+      "pred_sentence_text": "địa chỉ Miến Điện (nước Mi-an-ma)",
+      "pred_sentence_gloss": [
+        "địa chỉ",
+        "Miến Điện (nước Mi-an-ma)"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00177",
+      "pred_sentence_text": "lung tung địa chỉ",
+      "pred_sentence_gloss": [
+        "lung tung",
+        "địa chỉ"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    },
+    {
+      "sample_id": "CONT_00180",
+      "pred_sentence_text": "lung tung lung tung",
+      "pred_sentence_gloss": [
+        "lung tung",
+        "lung tung"
+      ],
+      "pred_segments": [],
+      "confidence": 1.0
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "VSL Mini",
+    "slug": "vsl-mini",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.vsl.mini"
+    },
+    "android": {
+      "package": "com.vsl.mini",
+      "permissions": [
+        "CAMERA"
+      ]
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "00628e27-0100-4491-b483-6110e1ddb529"
+      }
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "num_gt_samples": 60,
+  "num_evaluated": 60,
+  "num_missing_predictions": 0,
+  "missing_prediction_ids": [],
+  "exact_match_text": 0.0,
+  "exact_match_gloss": 0.0,
+  "wer": 1.1041666666666667,
+  "cer": 1.1038213437773163,
+  "split": "test",
+  "by_dialect": {
+    "central": {
+      "num_gt_samples": 3,
+      "num_evaluated": 3,
+      "num_missing_predictions": 0,
+      "missing_prediction_ids": [],
+      "exact_match_text": 0.0,
+      "exact_match_gloss": 0.0,
+      "wer": 1.0,
+      "cer": 1.0353535353535355
+    },
+    "south": {
+      "num_gt_samples": 2,
+      "num_evaluated": 2,
+      "num_missing_predictions": 0,
+      "missing_prediction_ids": [],
+      "exact_match_text": 0.0,
+      "exact_match_gloss": 0.0,
+      "wer": 1.0,
+      "cer": 1.3170542635658915
+    },
+    "unknown": {
+      "num_gt_samples": 55,
+      "num_evaluated": 55,
+      "num_missing_predictions": 0,
+      "missing_prediction_ids": [],
+      "exact_match_text": 0.0,
+      "exact_match_gloss": 0.0,
+      "wer": 1.1136363636363638,
+      "cer": 1.0998020271535744
+    }
+  },
+  "by_signer": {
+    "N": {
+      "num_gt_samples": 3,
+      "num_evaluated": 3,
+      "num_missing_predictions": 0,
+      "missing_prediction_ids": [],
+      "exact_match_text": 0.0,
+      "exact_match_gloss": 0.0,
+      "wer": 1.0,
+      "cer": 1.0353535353535355
+    },
+    "T": {
+      "num_gt_samples": 2,
+      "num_evaluated": 2,
+      "num_missing_predictions": 0,
+      "missing_prediction_ids": [],
+      "exact_match_text": 0.0,
+      "exact_match_gloss": 0.0,
+      "wer": 1.0,
+      "cer": 1.3170542635658915
+    },
+    "U": {
+      "num_gt_samples": 55,
+      "num_evaluated": 55,
+      "num_missing_predictions": 0,
+      "missing_prediction_ids": [],
+      "exact_match_text": 0.0,
+      "exact_match_gloss": 0.0,
+      "wer": 1.1136363636363638,
+      "cer": 1.0998020271535744
+    }
+  }
+}

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import CameraPage from './pages/CameraPage';
+import ContinuousPage from './pages/ContinuousPage';
 import UploadPage from './pages/UploadPage';
 import TrainingPage from './pages/TrainingPage';
 import StatusPage from './pages/StatusPage';
 
-const PAGES = ['camera', 'upload', 'training', 'status'];
+const PAGES = ['camera', 'continuous', 'upload', 'training', 'status'];
 
 export default function App() {
   const { t, i18n } = useTranslation();
@@ -49,6 +50,7 @@ export default function App() {
 
       <main className="content">
         {page === 'camera' && <CameraPage />}
+        {page === 'continuous' && <ContinuousPage />}
         {page === 'upload' && <UploadPage />}
         {page === 'training' && <TrainingPage />}
         {page === 'status' && <StatusPage />}

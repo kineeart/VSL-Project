@@ -1,0 +1,1221 @@
+{
+  "is_valid": true,
+  "summary": {
+    "num_samples": 300,
+    "num_signers": 9,
+    "split_distribution": {
+      "val": 111,
+      "test": 147,
+      "train": 42
+    },
+    "dialect_distribution": {
+      "central": 91,
+      "north": 109,
+      "south": 100
+    },
+    "issue_counts": {
+      "warning": 200
+    }
+  },
+  "issues": [
+    {
+      "level": "warning",
+      "code": "LOW_DIALECT_DIVERSITY",
+      "message": "Split 'train' has low dialect diversity: {'north': 42}"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 15139ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00002"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 13012ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00004"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 16614ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00005"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 15306ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00010"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 15707ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00011"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 12478ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00013"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 26249ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00015"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 24455ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00016"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 21220ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00019"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 13244ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00025"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 21611ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00026"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 20751ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00027"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 24439ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00028"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 12311ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00031"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 24773ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00032"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 15314ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00035"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 22379ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00036"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 20352ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00037"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 15546ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00038"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 15714ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00039"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 16381ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00040"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 15773ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00042"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 18884ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00043"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 21252ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00044"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 19575ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00046"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 14646ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00047"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 21737ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00048"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 15413ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00049"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 16682ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00054"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 12544ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00057"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 13312ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00058"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 14772ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00059"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 13378ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00060"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 20644ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00062"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 19777ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00064"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 24555ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00065"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 24090ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00068"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 15515ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00069"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 17182ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00070"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 18675ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00072"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 21352ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00074"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 12811ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00076"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 21553ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00078"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 15880ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00079"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 28385ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00080"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 14013ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00081"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 20453ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00082"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 22487ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00083"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 17750ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00084"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 20651ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00085"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 24556ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00086"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 20486ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00087"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 16014ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00091"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 15173ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00093"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 19943ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00095"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 19684ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00096"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 25725ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00097"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 20051ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00099"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 19417ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00101"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 18183ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00102"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 20653ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00103"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 13178ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00105"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 20452ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00107"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 16915ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00108"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 19050ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00109"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 21344ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00110"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 22921ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00112"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 13645ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00113"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 13604ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00114"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 26691ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00115"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 15146ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00116"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 15347ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00117"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 15114ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00118"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 28895ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00119"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 21879ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00120"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 16247ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00121"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 12545ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00122"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 16015ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00123"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 23822ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00124"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 18776ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00125"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 14580ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00127"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 14747ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00129"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 15339ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00130"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 24723ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00131"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 21285ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00132"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 20953ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00133"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 22053ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00135"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 17616ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00136"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 21811ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00138"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 17884ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00139"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 22546ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00140"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 15614ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00142"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 12478ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00144"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 20484ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00146"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 16940ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00147"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 18183ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00148"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 24190ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00149"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 14104ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00152"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 17850ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00154"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 16315ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00155"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 21645ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00157"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 18617ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00158"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 26082ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00161"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 12145ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00162"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 22045ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00165"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 15273ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00166"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 12177ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00168"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 13245ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00170"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 15714ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00172"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 20852ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00174"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 22613ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00175"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 15815ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00177"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 22220ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00178"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 21319ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00179"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 23447ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00180"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 16715ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00181"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 23280ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00183"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 15748ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00185"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 13313ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00188"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 16682ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00189"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 21954ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00191"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 14179ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00192"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 16081ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00194"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 23188ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00195"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 23079ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00196"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 24014ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00198"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 16582ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00201"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 16714ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00202"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 20150ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00203"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 24656ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00204"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 20485ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00205"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 20785ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00206"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 13871ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00207"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 12311ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00209"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 15780ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00210"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 25991ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00211"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 18617ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00212"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 19717ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00213"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 15980ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00214"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 17809ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00215"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 16814ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00216"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 12578ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00217"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 14614ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00218"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 14713ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00219"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 22053ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00220"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 12270ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00222"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 21686ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00223"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 20752ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00224"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 20177ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00225"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 17349ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00226"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 27350ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00228"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 24773ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00229"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 12803ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00231"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 20652ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00232"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 21610ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00235"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 12911ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00236"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 22853ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00237"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 20952ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00239"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 19435ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00241"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 24814ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00243"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 14104ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00245"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 17441ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00247"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 19576ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00248"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 15181ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00250"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 14005ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00251"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 18142ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00252"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 17774ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00253"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 14647ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00254"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 21287ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00255"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 17949ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00256"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 15447ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00257"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 21979ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00258"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 12378ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00260"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 13012ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00262"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 15079ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00263"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 20218ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00265"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 17774ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00267"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 13378ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00268"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 12478ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00271"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 25549ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00272"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 18083ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00273"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 15113ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00276"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 20484ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00278"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 14480ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00279"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 18309ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00280"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 13379ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00281"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 12077ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00282"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 21119ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00284"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 19618ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00285"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 16549ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00286"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 12979ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00287"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 20778ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00288"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 18551ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00289"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 22754ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00290"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 12978ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00295"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 18717ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00296"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 13611ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00298"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 20618ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00299"
+    },
+    {
+      "level": "warning",
+      "code": "LONG_SEQUENCE_FOR_ONDEVICE",
+      "message": "Sequence duration 19984ms may hurt mobile latency",
+      "sample_id": "SYN_SENT_00300"
+    }
+  ]
+}

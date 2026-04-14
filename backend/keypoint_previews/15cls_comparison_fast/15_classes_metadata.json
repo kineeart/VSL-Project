@@ -1,0 +1,184 @@
+{
+  "project": "models_15cls_run1",
+  "description": "15-Class Vietnamese Sign Language Recognition Model with Keypoint Analysis",
+  "total_classes": 15,
+  "keypoint_variant": "HOLISTIC",
+  "keypoint_features": {
+    "total_features": 1662,
+    "components": [
+      {
+        "name": "Pose",
+        "points": 33,
+        "channels": 4,
+        "description": "Full body skeleton: 33 points with (x, y, z, visibility)"
+      },
+      {
+        "name": "Left Hand",
+        "points": 21,
+        "channels": 3,
+        "description": "Left hand landmarks: 21 points with (x, y, z)"
+      },
+      {
+        "name": "Right Hand",
+        "points": 21,
+        "channels": 3,
+        "description": "Right hand landmarks: 21 points with (x, y, z)"
+      },
+      {
+        "name": "Face",
+        "points": 468,
+        "channels": 3,
+        "description": "Face mesh: 468 points with (x, y, z)"
+      }
+    ]
+  },
+  "normalization": {
+    "mean_shape": [4995],
+    "std_shape": [4995],
+    "mean_range": [-0.659893, 1.714546],
+    "std_range": [0.001963, 0.402277],
+    "method": "Zero-mean unit-variance normalization per feature"
+  },
+  "classes": [
+    {
+      "id": 0,
+      "name": "Albania (nước Albania)",
+      "description": "Albania country sign",
+      "vietnamese_name": "nước Albania",
+      "english_name": "Albania"
+    },
+    {
+      "id": 1,
+      "name": "Do Thái",
+      "description": "Jewish/Jew sign",
+      "vietnamese_name": "Do Thái",
+      "english_name": "Jewish"
+    },
+    {
+      "id": 2,
+      "name": "Ma Cao",
+      "description": "Macao sign",
+      "vietnamese_name": "Ma Cao",
+      "english_name": "Macao"
+    },
+    {
+      "id": 3,
+      "name": "Miến Điện (nước Mi-an-ma)",
+      "description": "Myanmar country sign",
+      "vietnamese_name": "Miến Điện",
+      "english_name": "Myanmar"
+    },
+    {
+      "id": 4,
+      "name": "Tuy Hoà",
+      "description": "Tuy Hoà city sign",
+      "vietnamese_name": "Tuy Hoà",
+      "english_name": "Tuy Hoà"
+    },
+    {
+      "id": 5,
+      "name": "người nước ngoài",
+      "description": "Foreign person/foreigner sign",
+      "vietnamese_name": "người nước ngoài",
+      "english_name": "Foreigner"
+    },
+    {
+      "id": 6,
+      "name": "nhân viên",
+      "description": "Employee/staff sign",
+      "vietnamese_name": "nhân viên",
+      "english_name": "Employee"
+    },
+    {
+      "id": 7,
+      "name": "nhập khẩu",
+      "description": "Import sign",
+      "vietnamese_name": "nhập khẩu",
+      "english_name": "Import"
+    },
+    {
+      "id": 8,
+      "name": "phương Tây",
+      "description": "Western/West sign",
+      "vietnamese_name": "phương Tây",
+      "english_name": "Western"
+    },
+    {
+      "id": 9,
+      "name": "phương Đông",
+      "description": "Eastern/East sign",
+      "vietnamese_name": "phương Đông",
+      "english_name": "Eastern"
+    },
+    {
+      "id": 10,
+      "name": "tiếp tân",
+      "description": "Receptionist/greeting sign",
+      "vietnamese_name": "tiếp tân",
+      "english_name": "Receptionist"
+    },
+    {
+      "id": 11,
+      "name": "tỉnh",
+      "description": "Province sign",
+      "vietnamese_name": "tỉnh",
+      "english_name": "Province"
+    },
+    {
+      "id": 12,
+      "name": "Đu Bai (nước Đu Bai)",
+      "description": "Dubai sign",
+      "vietnamese_name": "Đu Bai",
+      "english_name": "Dubai"
+    },
+    {
+      "id": 13,
+      "name": "địa chỉ",
+      "description": "Address sign",
+      "vietnamese_name": "địa chỉ",
+      "english_name": "Address"
+    },
+    {
+      "id": 14,
+      "name": "Ả Rập (nước Ả Rập)",
+      "description": "Arab/Arabia sign",
+      "vietnamese_name": "Ả Rập",
+      "english_name": "Arab"
+    }
+  ],
+  "augmentation_strategies": [
+    {
+      "name": "Original",
+      "description": "No augmentation - baseline keypoints",
+      "scale_range": [1.0, 1.0],
+      "purpose": "Reference for comparison"
+    },
+    {
+      "name": "Scale Augmentation",
+      "description": "Uniformly scale coordinates",
+      "scale_range": [0.8, 1.2],
+      "purpose": "Simulate different hand sizes and viewing distances",
+      "reduction_factor": 0.8,
+      "expansion_factor": 1.2
+    }
+  ],
+  "model_files": {
+    "sign_model.pt": "PyTorch model checkpoint",
+    "sign_model_best.pt": "Best model weights (lowest validation loss)",
+    "labels.json": "Class index to name mapping",
+    "norm_mean.npy": "Per-feature mean values for normalization",
+    "norm_std.npy": "Per-feature std values for normalization",
+    "training_history.json": "Training metrics and losses"
+  },
+  "export_summary": {
+    "html_report": "comparison_report.html - Interactive visualization with all 15 classes",
+    "text_summary": "SUMMARY.txt - Detailed analysis and normalization parameters",
+    "json_metadata": "15_classes_metadata.json - This file with complete class information"
+  },
+  "usage": {
+    "viewing_report": "Open comparison_report.html in a web browser to see keypoint visualizations",
+    "understanding_augmentation": "Left side: Original keypoints | Right side: Augmented keypoints (0.8x to 1.2x scale)",
+    "keypoint_interpretation": "Red dots represent detected keypoints in normalized space [0, 1]",
+    "frame_representation": "Each preview shows averaged keypoints across all frames in the sample sequence"
+  }
+}

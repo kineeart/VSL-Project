@@ -1,0 +1,87 @@
+================================================================================
+MODEL models_15cls_run1 - 15-CLASS KEYPOINT ANALYSIS
+================================================================================
+
+CLASSES (15 total):
+--------------------------------------------------------------------------------
+ 0. Albania (nước Albania)
+ 1. Do Thái
+ 2. Ma Cao
+ 3. Miến Điện (nước Mi-an-ma)
+ 4. Tuy Hoà
+ 5. người nước ngoài
+ 6. nhân viên
+ 7. nhập khẩu
+ 8. phương Tây
+ 9. phương Đông
+10. tiếp tân
+11. tỉnh
+12. Đu Bai (nước Đu Bai)
+13. địa chỉ
+14. Ả Rập (nước Ả Rập)
+
+================================================================================
+NORMALIZATION PARAMETERS
+================================================================================
+
+Mean values shape: (4995,)
+Std values shape: (4995,)
+Mean range: [-0.659893, 1.714546]
+Std range: [0.001963, 0.402277]
+
+Mean values (first 10):
+  [0]: 0.500342
+  [1]: 0.295308
+  [2]: -0.511555
+  [3]: 0.994520
+  [4]: 0.500416
+  [5]: 0.265977
+  [6]: -0.477830
+  [7]: 0.986390
+  [8]: 0.500463
+  [9]: 0.267342
+  ...
+
+Std values (first 10):
+  [0]: 0.025960
+  [1]: 0.014420
+  [2]: 0.133836
+  [3]: 0.016607
+  [4]: 0.026214
+  [5]: 0.013062
+  [6]: 0.135189
+  [7]: 0.019384
+  [8]: 0.028831
+  [9]: 0.012924
+  ...
+
+================================================================================
+AUGMENTATION STRATEGIES APPLIED
+================================================================================
+
+1. SCALE AUGMENTATION:
+   - Original: scale = 1.0 (no change)
+   - Augmented: scale in range [0.8, 1.2]
+     * Shrinks or expands keypoint coordinates uniformly
+     * Preserves relative spatial relationships
+
+2. PURPOSE OF AUGMENTATION:
+   - Increase robustness against different hand sizes
+   - Simulate zooming in/out during sign language capture
+   - Reduce overfitting to specific scale
+   - Improve model generalization
+
+================================================================================
+OUTPUT FILES
+================================================================================
+
+Location: keypoint_previews\15cls_comparison_fast
+- comparison_report.html: Interactive HTML report with all visualizations
+- SUMMARY.txt: This file with analysis details
+
+HOW TO VIEW:
+1. Open 'comparison_report.html' in a web browser
+2. Scroll through each of the 15 classes
+3. Compare original keypoints (left) vs augmented (right)
+4. Use Table of Contents to jump to specific classes
+

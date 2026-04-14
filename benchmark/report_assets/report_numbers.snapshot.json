@@ -1,0 +1,75 @@
+{
+  "training": {
+    "backend/models": {
+      "best_val_top1": 1.0,
+      "best_val_top5": 1.0,
+      "minutes": 44.768203850587206,
+      "num_classes": 4,
+      "train_samples": 400,
+      "val_samples": 4,
+      "num_features": 4995
+    },
+    "backend/models_15cls_run1": {
+      "best_val_top1": 1.0,
+      "best_val_top5": 1.0,
+      "minutes": 148.3672254840533,
+      "num_classes": 15,
+      "train_samples": 1500,
+      "val_samples": 2,
+      "num_features": 4995
+    }
+  },
+  "keypoint": {
+    "variant": "HOLISTIC",
+    "raw_total_features": 1662,
+    "normalized_feature_dim": 4995,
+    "components": [
+      {
+        "name": "Pose",
+        "points": 33,
+        "channels": 4,
+        "description": "Full body skeleton: 33 points with (x, y, z, visibility)"
+      },
+      {
+        "name": "Left Hand",
+        "points": 21,
+        "channels": 3,
+        "description": "Left hand landmarks: 21 points with (x, y, z)"
+      },
+      {
+        "name": "Right Hand",
+        "points": 21,
+        "channels": 3,
+        "description": "Right hand landmarks: 21 points with (x, y, z)"
+      },
+      {
+        "name": "Face",
+        "points": 468,
+        "channels": 3,
+        "description": "Face mesh: 468 points with (x, y, z)"
+      }
+    ],
+    "landmark_files_total": 4392,
+    "landmark_files_holistic": 30,
+    "landmark_files_plain": 4362
+  },
+  "dataset_manifest": {
+    "num_samples": 4362,
+    "num_labels": 3315,
+    "num_signers": 4
+  },
+  "continuous_eval_real": {
+    "num_gt_samples": 60,
+    "num_evaluated": 60,
+    "wer": 1.1041666666666667,
+    "cer": 1.1038213437773163,
+    "exact_match_text": 0.0
+  },
+  "sentence_eval_synthetic_small": {
+    "num_gt_samples": 10,
+    "num_evaluated": 10,
+    "wer": 0.9333333333333332,
+    "cer": 0.7956043166863067,
+    "segment_f1@0.5": 0.06666666666666667
+  }
+}

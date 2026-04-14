@@ -1,0 +1,29 @@
+{
+  "is_valid": true,
+  "summary": {
+    "num_samples": 2,
+    "num_signers": 2,
+    "split_distribution": {
+      "test": 2
+    },
+    "dialect_distribution": {
+      "south": 1,
+      "north": 1
+    },
+    "issue_counts": {
+      "warning": 2
+    }
+  },
+  "issues": [
+    {
+      "level": "warning",
+      "code": "EMPTY_SPLIT",
+      "message": "Split 'train' has 0 samples"
+    },
+    {
+      "level": "warning",
+      "code": "EMPTY_SPLIT",
+      "message": "Split 'val' has 0 samples"
+    }
+  ]
+}

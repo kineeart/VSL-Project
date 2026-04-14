@@ -1,0 +1,38 @@
+{
+  "input": "benchmark\\sentence_level\\data\\sentence_dataset.sample.json",
+  "output": "benchmark\\sentence_level\\data\\sentence_dataset.split.sample.json",
+  "group_by": "signer",
+  "seed": 42,
+  "ratios": {
+    "train": 0.7,
+    "val": 0.15,
+    "test": 0.15
+  },
+  "summary": {
+    "train": {
+      "num_samples": 2,
+      "num_groups": 2,
+      "num_signers": 2,
+      "dialect_distribution": {
+        "north": 1,
+        "south": 1
+      }
+    },
+    "val": {
+      "num_samples": 0,
+      "num_groups": 0,
+      "num_signers": 0,
+      "dialect_distribution": {}
+    },
+    "test": {
+      "num_samples": 0,
+      "num_groups": 0,
+      "num_signers": 0,
+      "dialect_distribution": {}
+    }
+  },
+  "empty_splits": [
+    "val",
+    "test"
+  ]
+}

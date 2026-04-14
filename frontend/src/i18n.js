@@ -6,7 +6,7 @@ const resources = {
   vi: {
     translation: {
       appName: 'Nhận dạng Ngôn ngữ Ký hiệu Việt Nam',
-      nav: { camera: 'Camera', upload: 'Tải video', training: 'Huấn luyện', status: 'Trạng thái' },
+      nav: { camera: 'Camera', continuous: 'Nhận diện liên tục', upload: 'Tải video', training: 'Huấn luyện', status: 'Trạng thái' },
       camera: {
         title: 'Nhận dạng Realtime',
         start: 'Bắt đầu',
@@ -15,6 +15,16 @@ const resources = {
         noModel: 'Chưa có model. Vui lòng huấn luyện trước.',
         detected: 'Nhận dạng được',
         confidence: 'Độ tin cậy'
+      },
+      continuous: {
+        title: 'Nhận diện liên tục',
+        start: 'Bắt đầu',
+        stop: 'Dừng',
+        reset: 'Xóa chuỗi',
+        waiting: 'Đang chờ chuỗi đầu vào...',
+        committed: 'Chuỗi đã chốt',
+        live: 'Chuỗi đang suy đoán',
+        noModel: 'Chưa có model. Vui lòng huấn luyện trước.'
       },
       upload: {
         title: 'Tải video lên để nhận dạng',
@@ -53,7 +63,7 @@ const resources = {
   en: {
     translation: {
       appName: 'Vietnamese Sign Language Recognition',
-      nav: { camera: 'Camera', upload: 'Upload', training: 'Training', status: 'Status' },
+      nav: { camera: 'Camera', continuous: 'Continuous', upload: 'Upload', training: 'Training', status: 'Status' },
       camera: {
         title: 'Realtime Recognition',
         start: 'Start',
@@ -62,6 +72,16 @@ const resources = {
         noModel: 'No model found. Please train first.',
         detected: 'Detected',
         confidence: 'Confidence'
+      },
+      continuous: {
+        title: 'Continuous Recognition',
+        start: 'Start',
+        stop: 'Stop',
+        reset: 'Reset phrase',
+        waiting: 'Waiting for input sequence...',
+        committed: 'Committed phrase',
+        live: 'Live hypothesis',
+        noModel: 'No model found. Please train first.'
       },
       upload: {
         title: 'Upload video for recognition',

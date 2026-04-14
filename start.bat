@@ -2,9 +2,20 @@
 chcp 65001 >nul
 title Vietnamese Sign Language Recognition
 
+REM ====== MODEL CONFIGURATION ======
+REM Change the model directory here to use different trained models:
+REM   - backend\models (default)
+REM   - backend\models_15cls_run1 (15-class experiment)
+REM   - etc.
+set "MODEL_DIR=backend\models_15cls_run1"
+set "VSL_MODEL_DIR=%CD%\%MODEL_DIR%"
+REM ===================================
+
 echo ============================================
 echo   Vietnamese Sign Language Recognition
 echo   Khoi dong he thong...
+echo ============================================
+echo   Model used: %VSL_MODEL_DIR%
 echo ============================================
 echo.
 
@@ -14,6 +25,17 @@ if %errorlevel% neq 0 (
     echo [LOI] Khong tim thay Python. Vui long cai dat Python 3.10+
     pause
     exit /b 1
+)
+
+set "PYTHON_EXE=.venv\Scripts\python.exe"
+if not exist "%PYTHON_EXE%" (
+    echo [0/4] Tao moi moi truong ao .venv...
+    python -m venv .venv
+    if %errorlevel% neq 0 (
+        echo [LOI] Tao moi truong ao that bai.
+        pause
+        exit /b 1
+    )
 )
 
 :: Check Node.js
@@ -38,7 +60,9 @@ echo.
 :: ---- Backend setup ----
 echo [1/4] Cai dat thu vien Python (backend)...
 cd backend
-python -m pip install -r requirements.txt --quiet
+..\%PYTHON_EXE% -m pip install --upgrade pip --quiet
+..\%PYTHON_EXE% -m pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121 --quiet
+..\%PYTHON_EXE% -m pip install -r requirements.txt --quiet
 if %errorlevel% neq 0 (
     echo [LOI] Cai dat thu vien Python that bai.
     cd ..
@@ -81,8 +105,8 @@ echo   Nhan Ctrl+C de dung tat ca.
 echo ============================================
 echo.
 
-:: Start backend in background
-start "VSL-Backend" cmd /c "cd backend && python app.py"
+:: Start backend in background; keep window open if startup fails
+start "VSL-Backend" cmd /k "cd backend && set VSL_MODEL_DIR=%VSL_MODEL_DIR% && ..\%PYTHON_EXE% -m uvicorn app:app --host 0.0.0.0 --port 8000"
 
 :: Wait for backend to start
 echo Dang cho backend khoi dong...

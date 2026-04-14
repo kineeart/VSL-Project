@@ -9,6 +9,7 @@ export default function CameraPage() {
   const intervalRef = useRef(null);
   const [running, setRunning] = useState(false);
   const [predictions, setPredictions] = useState([]);
+  const [debugInfo, setDebugInfo] = useState(null);
   const [error, setError] = useState('');
 
   const stop = useCallback(() => {
@@ -25,6 +26,7 @@ export default function CameraPage() {
   const start = async () => {
     setError('');
     setPredictions([]);
+    setDebugInfo(null);
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480 } });
       streamRef.current = stream;
@@ -41,6 +43,7 @@ export default function CameraPage() {
     ws.onmessage = (e) => {
       const data = JSON.parse(e.data);
       if (data.predictions) setPredictions(data.predictions);
+      if (data.debug) setDebugInfo(data.debug);
     };
     ws.onerror = () => setError('WebSocket error');
     ws.onclose = () => {};
@@ -92,6 +95,16 @@ export default function CameraPage() {
                 <span className="prediction-pct">{(p.confidence * 100).toFixed(1)}%</span>
               </div>
             ))}
+          </div>
+        )}
+
+        {debugInfo && (
+          <div className="debug-panel">
+            <div className="debug-title">Debug (raw vs smooth)</div>
+            <div className="debug-row">reason: {debugInfo.reason}</div>
+            <div className="debug-row">margin: {(debugInfo.margin ?? 0).toFixed(3)}</div>
+            <div className="debug-row">raw: {(debugInfo.raw_topk || []).map((x) => `${x.label}:${(x.confidence * 100).toFixed(1)}%`).join(' | ')}</div>
+            <div className="debug-row">smooth: {(debugInfo.smooth_topk || []).map((x) => `${x.label}:${(x.confidence * 100).toFixed(1)}%`).join(' | ')}</div>
           </div>
         )}
       </div>

@@ -1,0 +1,252 @@
+{
+  "version": "1.0",
+  "model_name": "backend_api_predict_video",
+  "predictions": [
+    {
+      "sample_id": "SYN_SENT_00004",
+      "pred_sentence_text": "lung tung lung tung",
+      "pred_sentence_gloss": [
+        "lung_tung",
+        "lung_tung"
+      ],
+      "pred_segments": [
+        {
+          "gloss": "lung_tung",
+          "start_ms": 0,
+          "end_ms": 3803
+        },
+        {
+          "gloss": "lung_tung",
+          "start_ms": 3803,
+          "end_ms": 7606
+        }
+      ],
+      "confidence": 0.35550108551979065
+    },
+    {
+      "sample_id": "SYN_SENT_00007",
+      "pred_sentence_text": "lung tung lung tung lung tung lung tung",
+      "pred_sentence_gloss": [
+        "lung_tung",
+        "lung_tung",
+        "lung_tung",
+        "lung_tung"
+      ],
+      "pred_segments": [
+        {
+          "gloss": "lung_tung",
+          "start_ms": 0,
+          "end_ms": 3303
+        },
+        {
+          "gloss": "lung_tung",
+          "start_ms": 3303,
+          "end_ms": 6606
+        },
+        {
+          "gloss": "lung_tung",
+          "start_ms": 6606,
+          "end_ms": 12737
+        },
+        {
+          "gloss": "lung_tung",
+          "start_ms": 12737,
+          "end_ms": 17374
+        }
+      ],
+      "confidence": 0.3727476969361305
+    },
+    {
+      "sample_id": "SYN_SENT_00009",
+      "pred_sentence_text": "lung tung lung tung no_sign",
+      "pred_sentence_gloss": [
+        "lung_tung",
+        "lung_tung",
+        "no_sign"
+      ],
+      "pred_segments": [
+        {
+          "gloss": "lung_tung",
+          "start_ms": 0,
+          "end_ms": 3336
+        },
+        {
+          "gloss": "lung_tung",
+          "start_ms": 3336,
+          "end_ms": 7907
+        },
+        {
+          "gloss": "no_sign",
+          "start_ms": 7907,
+          "end_ms": 11744
+        }
+      ],
+      "confidence": 0.4708414475123088
+    },
+    {
+      "sample_id": "SYN_SENT_00011",
+      "pred_sentence_text": "Miến Điện (nước Mi-an-ma) Miến Điện (nước Mi-an-ma) Miến Điện (nước Mi-an-ma)",
+      "pred_sentence_gloss": [
+        "mien_ien_nuoc_mi_an_ma",
+        "mien_ien_nuoc_mi_an_ma",
+        "mien_ien_nuoc_mi_an_ma"
+      ],
+      "pred_segments": [
+        {
+          "gloss": "mien_ien_nuoc_mi_an_ma",
+          "start_ms": 0,
+          "end_ms": 7107
+        },
+        {
+          "gloss": "mien_ien_nuoc_mi_an_ma",
+          "start_ms": 7107,
+          "end_ms": 11744
+        },
+        {
+          "gloss": "mien_ien_nuoc_mi_an_ma",
+          "start_ms": 11744,
+          "end_ms": 15080
+        }
+      ],
+      "confidence": 0.49806005756060284
+    },
+    {
+      "sample_id": "SYN_SENT_00012",
+      "pred_sentence_text": "lung tung lung tung",
+      "pred_sentence_gloss": [
+        "lung_tung",
+        "lung_tung"
+      ],
+      "pred_segments": [
+        {
+          "gloss": "lung_tung",
+          "start_ms": 0,
+          "end_ms": 4170
+        },
+        {
+          "gloss": "lung_tung",
+          "start_ms": 4170,
+          "end_ms": 8741
+        }
+      ],
+      "confidence": 0.384876012802124
+    },
+    {
+      "sample_id": "SYN_SENT_00013",
+      "pred_sentence_text": "lung tung lung tung",
+      "pred_sentence_gloss": [
+        "lung_tung",
+        "lung_tung"
+      ],
+      "pred_segments": [
+        {
+          "gloss": "lung_tung",
+          "start_ms": 0,
+          "end_ms": 4170
+        },
+        {
+          "gloss": "lung_tung",
+          "start_ms": 4170,
+          "end_ms": 8807
+        }
+      ],
+      "confidence": 0.38892240822315216
+    },
+    {
+      "sample_id": "SYN_SENT_00014",
+      "pred_sentence_text": "lung tung lung tung lung tung",
+      "pred_sentence_gloss": [
+        "lung_tung",
+        "lung_tung",
+        "lung_tung"
+      ],
+      "pred_segments": [
+        {
+          "gloss": "lung_tung",
+          "start_ms": 0,
+          "end_ms": 4637
+        },
+        {
+          "gloss": "lung_tung",
+          "start_ms": 4637,
+          "end_ms": 9274
+        },
+        {
+          "gloss": "lung_tung",
+          "start_ms": 9274,
+          "end_ms": 12610
+        }
+      ],
+      "confidence": 0.4223353962103526
+    },
+    {
+      "sample_id": "SYN_SENT_00016",
+      "pred_sentence_text": "lung tung lung tung",
+      "pred_sentence_gloss": [
+        "lung_tung",
+        "lung_tung"
+      ],
+      "pred_segments": [
+        {
+          "gloss": "lung_tung",
+          "start_ms": 0,
+          "end_ms": 3303
+        },
+        {
+          "gloss": "lung_tung",
+          "start_ms": 3303,
+          "end_ms": 6606
+        }
+      ],
+      "confidence": 0.37500032782554626
+    },
+    {
+      "sample_id": "SYN_SENT_00017",
+      "pred_sentence_text": "lung tung lung tung",
+      "pred_sentence_gloss": [
+        "lung_tung",
+        "lung_tung"
+      ],
+      "pred_segments": [
+        {
+          "gloss": "lung_tung",
+          "start_ms": 0,
+          "end_ms": 3336
+        },
+        {
+          "gloss": "lung_tung",
+          "start_ms": 3336,
+          "end_ms": 7506
+        }
+      ],
+      "confidence": 0.3679194450378418
+    },
+    {
+      "sample_id": "SYN_SENT_00019",
+      "pred_sentence_text": "lung tung Miến Điện (nước Mi-an-ma) Miến Điện (nước Mi-an-ma)",
+      "pred_sentence_gloss": [
+        "lung_tung",
+        "mien_ien_nuoc_mi_an_ma",
+        "mien_ien_nuoc_mi_an_ma"
+      ],
+      "pred_segments": [
+        {
+          "gloss": "lung_tung",
+          "start_ms": 0,
+          "end_ms": 6131
+        },
+        {
+          "gloss": "mien_ien_nuoc_mi_an_ma",
+          "start_ms": 6131,
+          "end_ms": 13238
+        },
+        {
+          "gloss": "mien_ien_nuoc_mi_an_ma",
+          "start_ms": 13238,
+          "end_ms": 18243
+        }
+      ],
+      "confidence": 0.37213778495788574
+    }
+  ]
+}

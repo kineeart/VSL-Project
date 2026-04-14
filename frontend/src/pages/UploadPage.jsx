@@ -7,6 +7,7 @@ export default function UploadPage() {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [predictions, setPredictions] = useState([]);
+  const [debugInfo, setDebugInfo] = useState(null);
   const [error, setError] = useState('');
   const [videoUrl, setVideoUrl] = useState('');
 
@@ -15,6 +16,7 @@ export default function UploadPage() {
     if (f) {
       setFile(f);
       setPredictions([]);
+      setDebugInfo(null);
       setError('');
       setVideoUrl(URL.createObjectURL(f));
     }
@@ -25,6 +27,7 @@ export default function UploadPage() {
     setLoading(true);
     setError('');
     setPredictions([]);
+    setDebugInfo(null);
 
     const form = new FormData();
     form.append('file', file);
@@ -34,6 +37,7 @@ export default function UploadPage() {
       const data = await res.json();
       if (!res.ok) { setError(data.error || 'Error'); return; }
       setPredictions(data.predictions || []);
+      setDebugInfo(data.debug || null);
     } catch {
       setError('Network error');
     } finally {
@@ -77,6 +81,16 @@ export default function UploadPage() {
               </div>
             ))}
           </div>
+
+          {debugInfo && (
+            <div className="debug-panel">
+              <div className="debug-title">Debug (raw vs smooth)</div>
+              <div className="debug-row">reason: {debugInfo.reason}</div>
+              <div className="debug-row">margin: {(debugInfo.margin ?? 0).toFixed(3)}</div>
+              <div className="debug-row">raw: {(debugInfo.raw_topk || []).map((x) => `${x.label}:${(x.confidence * 100).toFixed(1)}%`).join(' | ')}</div>
+              <div className="debug-row">smooth: {(debugInfo.smooth_topk || []).map((x) => `${x.label}:${(x.confidence * 100).toFixed(1)}%`).join(' | ')}</div>
+            </div>
+          )}
         </div>
       )}
     </div>

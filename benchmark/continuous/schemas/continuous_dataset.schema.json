@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://vsl.local/continuous_dataset.schema.json",
+  "title": "VSL Continuous Dataset",
+  "type": "object",
+  "required": ["version", "samples"],
+  "properties": {
+    "version": { "type": "string" },
+    "description": { "type": "string" },
+    "generation": { "type": "object" },
+    "samples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["sample_id", "split", "video_path", "sentence_text", "sentence_gloss", "source_segments"],
+        "properties": {
+          "sample_id": { "type": "string" },
+          "split": { "type": "string", "enum": ["train", "val", "test"] },
+          "video_path": { "type": "string" },
+          "sentence_text": { "type": "string" },
+          "sentence_gloss": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 1
+          },
+          "source_segments": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["source_video", "label", "trim_start_ms", "trim_end_ms", "segment_index"],
+              "properties": {
+                "source_video": { "type": "string" },
+                "label": { "type": "string" },
+                "segment_index": { "type": "integer", "minimum": 0 },
+                "trim_start_ms": { "type": "number", "minimum": 0 },
+                "trim_end_ms": { "type": "number", "minimum": 0 },
+                "source_duration_ms": { "type": "number", "minimum": 0 }
+              }
+            }
+          },
+          "signer_id": { "type": "string" },
+          "dialect": { "type": "string" },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}
