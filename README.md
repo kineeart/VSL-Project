@@ -341,9 +341,6 @@ python train_gpu.py
 - [x] Ensemble nhiều mô hình khi suy luận chuỗi (average probability across checkpoints)
 - [ ] Huấn luyện và đánh giá trên dataset VSL chuỗi thật (không chỉ synthetic)
 
-<<<<<<< HEAD
----
-=======
 ## Đối chiếu với mục tiêu đề tài
 
 | Mục tiêu đề tài | Mức độ hiện tại trong repo |
@@ -357,4 +354,95 @@ python train_gpu.py
 Ghi chú hiện trạng:
 - Chế độ nhận diện liên tục hiện tại đã có LM rerank + ensemble ở mức baseline, nhưng lõi mô hình vẫn là nhận diện đơn lẻ theo cửa sổ thời gian.
 - Để bám sát hoàn toàn phần giới thiệu đề tài, trọng tâm còn lại là thu thập và benchmark nghiêm ngặt trên tập chuỗi thật (train/val/test) + phân tích lỗi định tính.
->>>>>>> 67f98b5 (Update project files (exclude Videos))
+
+## Kiểm tra hiện trạng trước khi train/benchmark
+
+### 1) Kiểm tra nhanh file và script chính
+
+Các kiểm tra cú pháp hiện tại đã ổn cho các script trọng yếu sau:
+
+- `backend/train_gpu.py`
+- `benchmark/continuous/scripts/evaluate_continuous_benchmark.py`
+- `benchmark/sentence_level/scripts/validate_sentence_dataset.py`
+- `benchmark/sentence_level/scripts/evaluate_sentence_benchmark.py`
+
+### 2) Kiểm tra dữ liệu benchmark đang có
+
+- Continuous:
+    - `benchmark/continuous/data/continuous_dataset.real.json`
+    - `benchmark/continuous/data/continuous_predictions.real.json`
+    - `benchmark/continuous/data/continuous_eval.real.json`
+    - `benchmark/continuous/data/charts/continuous_wer_cer_by_signer.png`
+    - `benchmark/continuous/data/charts/continuous_wer_cer_by_dialect.png`
+- Sentence-level:
+    - `benchmark/sentence_level/data/sentence_dataset.sample.json`
+    - `benchmark/sentence_level/data/sentence_dataset.synthetic.small.json`
+    - `benchmark/sentence_level/data/sentence_dataset.synthetic.300.json`
+    - `benchmark/sentence_level/data/sentence_dataset.synthetic.500_ondevice.json`
+    - `benchmark/sentence_level/data/sentence_predictions.sample.json`
+    - `benchmark/sentence_level/data/sentence_eval.synthetic.small.json`
+
+### 3) Trình tự kiểm tra khuyến nghị
+
+1. Xác nhận `Data.xlsx`, `Videos/`, `backend/landmarks/` còn đầy đủ.
+2. Chạy validation dataset sentence-level trước khi split/evaluate.
+3. Chạy continuous benchmark trên dataset thật hoặc dataset đã tạo chuẩn.
+4. Đối chiếu WER/CER/Exact Match với kết quả cũ.
+5. Chạy breakdown theo signer/dialect nếu cần báo cáo nghiên cứu.
+6. Chỉ chốt kết luận sau khi đã có số liệu ổn định trên dataset đủ lớn.
+
+## Huấn luyện trên Google Colab
+
+### Cách làm đầy đủ nhưng vẫn nhanh
+
+1. Nén repo hoặc clone repo lên Colab.
+2. Mount Google Drive để lưu checkpoint và landmarks.
+3. Cài dependencies backend.
+4. Đảm bảo `Data.xlsx`, `Videos/`, `backend/landmarks/` nằm đúng chỗ.
+5. Chạy `python backend/train_gpu.py` trực tiếp từ root repo.
+6. Sau khi train xong, copy `backend/models/` về Drive để lưu kết quả.
+
+### Gợi ý cấu trúc Colab
+
+```python
+from google.colab import drive
+drive.mount('/content/drive')
+
+import os
+os.chdir('/content/drive/MyDrive/VSL')
+
+!pip install -r backend/requirements.txt
+!pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121 -q
+
+!python backend/train_gpu.py
+```
+
+### Khuyến nghị để chạy ổn định hơn trên Colab
+
+- Dùng Colab Pro nếu có thể để có GPU mạnh hơn.
+- Đặt `VSL_MODEL_DIR` và `VSL_LANDMARKS_DIR` trỏ về Drive nếu muốn giữ checkpoint sau khi session tắt.
+- Nếu gặp thiếu RAM, giảm batch size hoặc giới hạn thử nghiệm trước khi chạy full training.
+- Nếu muốn kiểm tra nhanh trước, hãy chạy trên một subset nhỏ rồi mới mở full dataset.
+
+### Những gì nên làm trên Colab trước khi train dài
+
+```bash
+# Kiểm tra GPU
+nvidia-smi
+
+# Kiểm tra thư mục dữ liệu
+ls
+ls backend
+ls Videos
+ls backend/landmarks
+
+# Chạy một bước nhỏ trước nếu muốn test đường đi
+python backend/test_model_load.py
+```
+
+### Mốc chốt để coi là train Colab thành công
+
+- Model được train xong và lưu checkpoint bình thường.
+- `training_history.json` hoặc log train có đủ epoch và validation.
+- Không có lỗi dữ liệu đầu vào hoặc mismatch feature size.
+- Có thể đem checkpoint đó sang chạy benchmark tiếp.
