@@ -940,6 +940,7 @@ BENCHMARK SUMMARY
 import shutil
 from google.colab import files
 from pathlib import Path
+import os
 
 print("="*70)
 print("DOWNLOADING RESULTS")
@@ -951,24 +952,46 @@ reports_dir = BASE_DIR / 'benchmark' / 'reports'
 
 print("\n→ Preparing download files...")
 
+def safe_make_zip(source_dir: Path, archive_path: str) -> bool:
+    if os.path.exists(archive_path):
+        os.remove(archive_path)
+    try:
+        shutil.make_archive(archive_path.replace('.zip', ''), 'zip', root_dir=source_dir.parent, base_dir=source_dir.name)
+        return os.path.exists(archive_path)
+    except Exception as e:
+        print(f"⚠ Could not create {archive_path}: {e}")
+        return False
+
 # Create zip for all model checkpoints
-!cd "{BASE_DIR}" && zip -r /tmp/all_models.zip backend/models -q
-print("✓ Created all_models.zip")
+models_zip = '/tmp/all_models.zip'
+models_ok = safe_make_zip(results_dir, models_zip)
+if models_ok:
+  print("✓ Created all_models.zip")
+else:
+  print("⚠ Skipping all_models.zip download because archive creation failed")
 
 # Create zip for all reports
-!cd "{BASE_DIR}" && zip -r /tmp/all_reports.zip benchmark/reports -q
-print("✓ Created all_reports.zip")
+reports_zip = '/tmp/all_reports.zip'
+reports_ok = safe_make_zip(reports_dir, reports_zip)
+if reports_ok:
+  print("✓ Created all_reports.zip")
+else:
+  print("⚠ Skipping all_reports.zip download because archive creation failed")
 
 # Also copy individual markdown summary
-!cp "{reports_dir / 'BENCHMARK_SUMMARY.md'}" /tmp/BENCHMARK_SUMMARY.md
+summary_path = '/tmp/BENCHMARK_SUMMARY.md'
+!cp "{reports_dir / 'BENCHMARK_SUMMARY.md'}" "{summary_path}"
 print("✓ Copied BENCHMARK_SUMMARY.md")
 
 print("\n→ Downloading files...")
 
 # Download key files
-files.download('/tmp/all_models.zip')
-files.download('/tmp/all_reports.zip')
-files.download('/tmp/BENCHMARK_SUMMARY.md')
+if models_ok:
+  files.download(models_zip)
+if reports_ok:
+  files.download(reports_zip)
+if os.path.exists(summary_path):
+  files.download(summary_path)
 
 print("\n✅ Downloads queued! Check your Downloads folder.")
 
