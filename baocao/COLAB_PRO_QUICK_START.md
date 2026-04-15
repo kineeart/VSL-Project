@@ -165,6 +165,20 @@ EPOCHS = 100  # Optional: reduce epochs for testing
 !cd /content/VSL-Project && pip install -r backend/requirements.txt -q
 ```
 
+### Issue: "numpy.dtype size changed" when importing pandas in Cell 2
+
+**Root cause**: Colab has an incompatible `numpy`/`pandas` binary pair after dependency installation.
+
+**Solution**:
+```python
+# Re-run Cell 0 first; it now repairs the numpy/pandas pair automatically.
+# If Cell 2 still fails, restart the runtime and run from Cell 0 again.
+
+!pip install --no-cache-dir --force-reinstall numpy==1.26.4 pandas==2.2.2 -q
+```
+
+If pip still prints many dependency-conflict warnings, they are usually safe to ignore for this project as long as these imports work in Cell 2: `numpy`, `pandas`, `torch`, `cv2`, `mediapipe`, `openpyxl`, `sklearn`.
+
 ### Issue: "Notebook disconnected / Session crashed"
 
 **Cause**: Cell ran > 12 hours without interruption
@@ -359,6 +373,46 @@ All results downloaded & backed up ✓
 2. **Copy-paste 12 cells** from [COLAB_PRO_NOTEBOOK_GUIDE.md](COLAB_PRO_NOTEBOOK_GUIDE.md)
 3. **Run sequentially** (or parallel if 80GB+ RAM)
 4. **Download results** when complete (~26-34 hours)
+
+Note: Cell 0 may terminate/restart the runtime once after dependency repair. This is expected for fixing numpy/pandas ABI on Colab. After restart, run Cell 0 again, then continue with Cell 1.
+
+### Drive-only Dataset Workflow
+
+If your GitHub repo does not include `Data.xlsx` and `Videos/`, store them in Google Drive:
+
+```text
+/content/gdrive/MyDrive/VSL_Data/
+├── Data.xlsx
+└── Videos/
+```
+
+Cell 1 in the guide will auto-attach this dataset path into `/content/VSL-Project`.
+
+If the dataset is in **Shared with me**, create a **Shortcut to Drive** into `MyDrive` first (recommended), then keep the same folder layout above.
+
+### Issue: "No data mapping loaded" in Cell 3
+
+**Root cause**: `Data.xlsx` and/or `Videos/` are missing from `/content/VSL-Project`.
+
+**Solution**:
+1. Put dataset in Drive as:
+  - `/content/gdrive/MyDrive/VSL_Data/Data.xlsx`
+  - `/content/gdrive/MyDrive/VSL_Data/Videos/`
+2. Re-run Cell 1 (dataset attach step).
+3. Re-run Cell 3.
+
+### Issue: "BrokenProcessPool" during landmark extraction in Cell 3
+
+**Root cause**: Too many worker processes loading MediaPipe model at once can crash the process pool on Colab.
+
+**Solution**:
+1. Use the updated Cell 3 in the notebook guide (it auto-limits workers and retries).
+2. Re-run Cell 3 only (cache keeps completed items).
+3. If it still crashes, set workers to 1 in Cell 3 and run again.
+
+Notes:
+- `jax_cuda12_plugin ... not compatible with jaxlib` warnings are usually harmless for this VSL pipeline.
+- They do not block PyTorch/MediaPipe training unless your notebook explicitly uses JAX.
 
 ---
 
