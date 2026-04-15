@@ -43,6 +43,15 @@ SWA_EP = 100
 MIXUP_ALPHA = 0.4
 MIN_SAMPLES = 3  # Only train classes with >= 3 videos
 NW = max(1, mp_proc.cpu_count() - 2)
+FAILED_VIDEOS = set()
+FAILED_CLASSES = set()
+
+
+def video_class_name(filename: str) -> str:
+    stem = Path(filename).stem
+    if stem and stem[-1] in ("B", "N", "T"):
+        return stem[:-1]
+    return stem
 
 # ============================================================
 # Data Limiting (set to 0 or None to load all rows)
@@ -160,46 +169,60 @@ def load_data_mapping():
 # Landmark Extraction (parallel)
 # ============================================================
 def extract_single_video(args):
-    import mediapipe as mp_lib
-    from keypoint_variants import KeypointType, VARIANTS, extract_landmarks_variant
-    # Note: KEYPOINT_VARIANT must be reimported in each worker process
-    fn, vp, cp, sl, variant_type = args
-    variant_config = VARIANTS[variant_type]
-    expected_shape = (sl, variant_config.feature_size)
-    
-    if cp.exists():
-        try:
-            s = np.load(str(cp))
-            if s.shape == expected_shape:
-                return fn, True
-        except:
-            pass
-    cap = cv2.VideoCapture(str(vp))
-    frames = []
-    while cap.isOpened():
-        ret, f = cap.read()
-        if not ret:
-            break
-        frames.append(f)
-    cap.release()
-    if not frames:
-        return fn, False
-    idx = np.linspace(0, len(frames) - 1, sl, dtype=int)
-    samp = [frames[i] for i in idx]
-    lms = []
-    with mp_lib.solutions.holistic.Holistic(
-        model_complexity=2,
-        min_detection_confidence=0.7,
-        min_tracking_confidence=0.7,
-    ) as h:
-        for fr in samp:
-            img = cv2.cvtColor(fr, cv2.COLOR_BGR2RGB)
-            img.flags.writeable = False
-            r = h.process(img)
-            lm = extract_landmarks_variant(r, variant_type)
-            lms.append(lm)
-    np.save(str(cp), np.array(lms))
-    return fn, True
+    try:
+        import mediapipe as mp_lib
+        from keypoint_variants import KeypointType, VARIANTS, extract_landmarks_variant
+        # Note: KEYPOINT_VARIANT must be reimported in each worker process
+        fn, vp, cp, sl, variant_type = args
+        variant_config = VARIANTS[variant_type]
+        expected_shape = (sl, variant_config.feature_size)
+
+        if cp.exists():
+            try:
+                s = np.load(str(cp))
+                if s.shape == expected_shape:
+                    return fn, True, None
+            except Exception:
+                pass
+
+        cap = cv2.VideoCapture(str(vp))
+        frames = []
+        while cap.isOpened():
+            ret, f = cap.read()
+            if not ret:
+                break
+            frames.append(f)
+        cap.release()
+        if not frames:
+            return fn, False, "Video read returned no frames"
+
+        idx = np.linspace(0, len(frames) - 1, sl, dtype=int)
+        samp = [frames[i] for i in idx]
+        lms = []
+        with mp_lib.solutions.holistic.Holistic(
+            model_complexity=2,
+            min_detection_confidence=0.7,
+            min_tracking_confidence=0.7,
+        ) as h:
+            for fr in samp:
+                img = cv2.cvtColor(fr, cv2.COLOR_BGR2RGB)
+                img.flags.writeable = False
+                r = h.process(img)
+                lm = extract_landmarks_variant(r, variant_type)
+                lms.append(lm)
+        np.save(str(cp), np.array(lms))
+        return fn, True, None
+    except Exception as e:
+        return args[0], False, f"{type(e).__name__}: {e}"
+
+
+def extract_single_video_isolated(args):
+    try:
+        with ProcessPoolExecutor(max_workers=1) as ex:
+            fut = ex.submit(extract_single_video, args)
+            return fut.result()
+    except Exception as e:
+        return args[0], False, f"{type(e).__name__}: {e}"
 
 
 def landmark_cache_path(filename: str, variant_type: KeypointType) -> Path:
@@ -209,6 +232,10 @@ def landmark_cache_path(filename: str, variant_type: KeypointType) -> Path:
 
 
 def extract_all(mapping):
+    global FAILED_VIDEOS, FAILED_CLASSES
+    FAILED_VIDEOS = set()
+    FAILED_CLASSES = set()
+
     tasks = []
     for fn in mapping:
         vp = None
@@ -228,20 +255,59 @@ def extract_all(mapping):
     t0 = time.time()
     ok = 0
     fail = 0
-    print(f"[LM] Extracting with {NW} workers...")
-    with ProcessPoolExecutor(max_workers=NW) as ex:
-        futs = {ex.submit(extract_single_video, t): t[0] for t in unc}
-        for fut in as_completed(futs):
-            _, s = fut.result()
+
+    def _mark_failed(fn, reason):
+        cls = video_class_name(fn)
+        FAILED_VIDEOS.add(fn)
+        FAILED_CLASSES.add(cls)
+        print(f"  ✗ {fn} ({cls}): {reason}")
+
+    def _run_sequential():
+        nonlocal ok, fail
+        for t in unc:
+            _, s, reason = extract_single_video_isolated(t)
             if s:
                 ok += 1
             else:
                 fail += 1
+                _mark_failed(t[0], reason or "unknown error")
             td = ok + fail
             if td % 100 == 0 or td == len(unc):
                 el = time.time() - t0
                 sp = td / max(el, 1)
                 print(f"  [{ok + cached}/{tot}] {sp:.1f} v/s  ~{(len(unc) - td) / max(sp, .01):.0f}s left")
+
+    if NW <= 1:
+        print("[LM] Extracting sequentially in the main process...")
+        _run_sequential()
+    else:
+        print(f"[LM] Extracting with {NW} workers...")
+        try:
+            with ProcessPoolExecutor(max_workers=NW) as ex:
+                futs = {ex.submit(extract_single_video, t): t[0] for t in unc}
+                for fut in as_completed(futs):
+                    fn = futs[fut]
+                    try:
+                        res_fn, s, reason = fut.result()
+                    except Exception as e:
+                        fail += 1
+                        _mark_failed(fn, f"{type(e).__name__}: {e}")
+                        continue
+                    if s:
+                        ok += 1
+                    else:
+                        fail += 1
+                        _mark_failed(res_fn, reason or "unknown error")
+                    td = ok + fail
+                    if td % 100 == 0 or td == len(unc):
+                        el = time.time() - t0
+                        sp = td / max(el, 1)
+                        print(f"  [{ok + cached}/{tot}] {sp:.1f} v/s  ~{(len(unc) - td) / max(sp, .01):.0f}s left")
+        except Exception as e:
+            print(f"  ⚠ Process pool crashed ({type(e).__name__}: {e}), retrying sequentially...")
+            ok = 0
+            fail = 0
+            _run_sequential()
     print(f"[LM] Done! {ok} ok, {fail} fail ({time.time() - t0:.0f}s)\n")
 
 
@@ -648,6 +714,11 @@ class WarmupCosineScheduler:
 # ============================================================
 def prep_data(mapping):
     """Prepare data: filter by MIN_SAMPLES, split train/val, augment, normalize."""
+    mapping = {
+        fn: lb
+        for fn, lb in mapping.items()
+        if fn not in FAILED_VIDEOS and lb not in FAILED_CLASSES
+    }
     label_counts = Counter(mapping.values())
     # In fixed subset mode, allow classes with even 1 source video and rely on augmentation.
     effective_min_samples = 1 if USE_FIXED_20_CLASSES else MIN_SAMPLES
@@ -664,6 +735,8 @@ def prep_data(mapping):
 
     print(f"[DATA] Filter >= {effective_min_samples} samples: {nc} classes, {len(filtered)} videos")
     print(f"  (Skipped {len(mapping) - len(filtered)} videos from {len(label_counts) - nc} rare classes)")
+    if FAILED_VIDEOS or FAILED_CLASSES:
+        print(f"  (Skipped {len(FAILED_VIDEOS)} failed videos from {len(FAILED_CLASSES)} failed classes)")
 
     X_train, y_train, X_val, y_val = [], [], [], []
     class_train_counts = {}
