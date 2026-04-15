@@ -18,7 +18,7 @@ from train_gpu import (
 )
 from torch.utils.data import DataLoader, TensorDataset
 import torch.nn as nn
-import torch.optim.swa_utils as swa_utils
+from torch.optim.swa_utils import AveragedModel, update_bn
 
 
 def train_enhanced():
@@ -46,7 +46,7 @@ def train_enhanced():
     scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, T_0=10, T_mult=2)
     
     # Stochastic Weight Averaging
-    swa_model = swa_utils.SWALR(optimizer, swa_lr=LR * 0.1)
+    swa_model = AveragedModel(model)
     
     # Scaler for mixed precision
     scaler = torch.cuda.amp.GradScaler() if device.type == 'cuda' else None
@@ -110,7 +110,7 @@ def train_enhanced():
         train_loss = train_loss_sum / max(train_total, 1)
         
         # ====== VALIDATION PHASE ======
-        eval_model = swa_model.model if swa_active else model
+        eval_model = swa_model if swa_active else model
         eval_model.eval()
         val_top1_sum, val_top5_sum, val_loss_sum, val_total = 0, 0, 0.0, 0
         
@@ -160,7 +160,7 @@ def train_enhanced():
             best_val_top5 = val_top5
             best_val_top1 = val_top1
             patience_counter = 0
-            state = swa_model.model.state_dict() if swa_active else model.state_dict()
+            state = swa_model.module.state_dict() if swa_active else model.state_dict()
             torch.save({
                 'model_state_dict': state,
                 'num_classes': nc,
@@ -179,7 +179,7 @@ def train_enhanced():
     # ====== FINALIZE SWA ======
     if swa_active:
         print("\n  Updating SWA batch normalization...")
-        torch.optim.swa_utils.update_bn(train_loader, swa_model.model, device=device)
+        update_bn(train_loader, swa_model, device=device)
     
     # Save final model
     best = torch.load(str(MODEL_DIR / "sign_model_best.pt"), weights_only=True)
