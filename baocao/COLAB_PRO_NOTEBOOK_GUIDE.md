@@ -382,13 +382,14 @@ safe_mkdir(tg.LANDMARKS_DIR)
 tg.NW = 1
 
 # Option 1 profile (stable benchmark on Colab RAM):
-# - Keep top 30-50 classes (here: 40) with enough samples
-# - Require at least 20 videos/class
+# - Prefer classes with at least 20 videos
+# - Keep top 30-50 classes (here: 40)
 # - Reduce oversampling target from 100 -> 20
 OPTION1_MAX_CLASSES = 40
-OPTION1_MIN_SAMPLES = 20
+OPTION1_REQUESTED_MIN_SAMPLES = 20
+OPTION1_EFFECTIVE_MIN_SAMPLES = 3  # fallback used when the requested threshold is too strict for this dataset
 OPTION1_TARGET_SAMPLES = 20
-tg.MIN_SAMPLES = OPTION1_MIN_SAMPLES
+tg.MIN_SAMPLES = OPTION1_EFFECTIVE_MIN_SAMPLES
 tg.TARGET_SAMPLES_PER_CLASS = OPTION1_TARGET_SAMPLES
 
 print('Using PROJECT_DIR:', PROJECT_DIR)
@@ -397,7 +398,8 @@ print('Using VIDEOS_DIR:', tg.VIDEOS_DIR)
 print('Using DATA_FILE:', tg.DATA_FILE)
 print('Using LANDMARKS_DIR:', tg.LANDMARKS_DIR)
 print('Using OPTION1_MAX_CLASSES:', OPTION1_MAX_CLASSES)
-print('Using OPTION1_MIN_SAMPLES:', OPTION1_MIN_SAMPLES)
+print('Using OPTION1_REQUESTED_MIN_SAMPLES:', OPTION1_REQUESTED_MIN_SAMPLES)
+print('Using OPTION1_EFFECTIVE_MIN_SAMPLES:', OPTION1_EFFECTIVE_MIN_SAMPLES)
 print('Using OPTION1_TARGET_SAMPLES:', OPTION1_TARGET_SAMPLES)
 
 print('\n→ Loading data mapping...')
@@ -406,15 +408,30 @@ if not mapping:
   raise RuntimeError('No data mapping loaded. Check Data.xlsx format and video filenames.')
 print(f'✓ Loaded {len(mapping)} videos')
 
-# Apply Option 1 class filter: keep top-N labels with at least min samples.
+# Apply Option 1 class filter.
+# Prefer classes with at least the requested minimum; if none exist, fall back
+# to the top-N classes by count and use the effective minimum for a runnable benchmark.
 label_counts = Counter(mapping.values())
-eligible = [(lb, cnt) for lb, cnt in label_counts.items() if cnt >= OPTION1_MIN_SAMPLES]
+eligible = [(lb, cnt) for lb, cnt in label_counts.items() if cnt >= OPTION1_REQUESTED_MIN_SAMPLES]
 eligible.sort(key=lambda x: (-x[1], str(x[0])))
-top_labels = {lb for lb, _ in eligible[:OPTION1_MAX_CLASSES]}
+if eligible:
+  selected = eligible[:OPTION1_MAX_CLASSES]
+  top_labels = {lb for lb, _ in selected}
+  tg.MIN_SAMPLES = OPTION1_REQUESTED_MIN_SAMPLES
+  print(f"✓ Found {len(eligible)} classes meeting the requested minimum of {OPTION1_REQUESTED_MIN_SAMPLES}")
+else:
+  print(
+    f"⚠ No class reaches {OPTION1_REQUESTED_MIN_SAMPLES} samples in the current dataset. "
+    f"Falling back to top {OPTION1_MAX_CLASSES} classes with effective min {OPTION1_EFFECTIVE_MIN_SAMPLES}."
+  )
+  ranked = sorted(label_counts.items(), key=lambda x: (-x[1], str(x[0])))
+  top_labels = {lb for lb, _ in ranked[:OPTION1_MAX_CLASSES]}
+  tg.MIN_SAMPLES = OPTION1_EFFECTIVE_MIN_SAMPLES
+
 mapping = {fn: lb for fn, lb in mapping.items() if lb in top_labels}
 print(f"✓ Option 1 filter: {len(top_labels)} classes, {len(mapping)} videos retained")
 if not mapping:
-  raise RuntimeError('Option 1 filter retained 0 videos. Reduce OPTION1_MIN_SAMPLES or OPTION1_MAX_CLASSES.')
+  raise RuntimeError('Option 1 filter retained 0 videos. Reduce OPTION1_REQUESTED_MIN_SAMPLES or OPTION1_MAX_CLASSES.')
 
 print('\n→ Extracting/caching landmarks (sequential, no process pool)...')
 try:
