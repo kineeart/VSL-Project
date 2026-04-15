@@ -13,19 +13,28 @@
 ## **CELL 0: Clone Repository & Install Dependencies**
 
 ```python
-# Cell 0: Clone and Setup
+# Cell 0: Clone and Setup (persist on Google Drive)
 import os
-import subprocess
 from pathlib import Path
 
-# Clone repository
-if not Path('/content/VSL-Project').exists():
-    !git clone https://github.com/kineeart/VSL-Project.git /content/VSL-Project
-    print("✓ Repository cloned")
-else:
-    print("✓ Repository already exists")
+from google.colab import drive
+drive.mount('/content/drive', force_remount=False)
 
-%cd /content/VSL-Project
+PROJECT_DIR = Path('/content/drive/MyDrive/VSL-Project')
+REPO_URL = 'https://github.com/kineeart/VSL-Project.git'
+
+if not PROJECT_DIR.exists():
+  !git clone {REPO_URL} "{PROJECT_DIR}"
+  print("✓ Repository cloned to Google Drive")
+else:
+  print("✓ Repository already exists on Google Drive")
+
+print("→ Switching to branch V1...")
+!git -C "{PROJECT_DIR}" fetch origin V1
+!git -C "{PROJECT_DIR}" checkout -B V1 origin/V1
+!git -C "{PROJECT_DIR}" pull --ff-only origin V1
+
+%cd "{PROJECT_DIR}"
 
 # Install PyTorch with CUDA 12.1 support
 print("\n→ Installing PyTorch with CUDA 12.1...")
@@ -35,22 +44,44 @@ print("\n→ Installing PyTorch with CUDA 12.1...")
 print("→ Installing dependencies...")
 !pip install -r backend/requirements.txt -q
 
+# Repair the common Colab numpy/pandas ABI mismatch before any pandas import.
+print("→ Repairing numpy/pandas compatibility...")
+!pip install --no-cache-dir --force-reinstall numpy==1.26.4 pandas==2.2.2 -q
+
+# Verify ABI now; if still broken, reinstall once and force runtime restart.
+_abi_ok = True
+try:
+  import numpy as _np
+  import pandas as _pd
+  print(f"✓ ABI check passed (numpy={_np.__version__}, pandas={_pd.__version__})")
+except Exception as e:
+  _abi_ok = False
+  print(f"⚠ ABI check failed: {e}")
+
+if not _abi_ok:
+  print("→ Reinstalling ABI pair and restarting runtime once...")
+  !pip install --no-cache-dir --force-reinstall numpy==1.26.4 pandas==2.2.2 -q
+  import os as _os
+  _os._exit(0)
+
 print("\n✅ Setup complete!")
 print(f"Working directory: {os.getcwd()}")
 ```
 
 **Expected Output**:
 ```
-✓ Repository already exists (or cloned)
+✓ Repository already exists on Google Drive (or cloned)
 → Installing PyTorch...
 → Installing dependencies...
 ✅ Setup complete!
-Working directory: /content/VSL-Project
+Working directory: /content/drive/MyDrive/VSL-Project
 ```
 
 ---
 
 ## **CELL 1: Mount Google Drive & Verify GPU**
+
+> This notebook runs against branch `V1` end-to-end. Cell 0 and Cell 2 both verify that the repo is checked out to `V1` before any data or training step.
 
 ```python
 # Cell 1: Mount Drive and Check GPU
@@ -59,8 +90,8 @@ import torch
 
 # Mount Google Drive for backup
 print("→ Mounting Google Drive...")
-drive.mount('/content/gdrive', force_remount=False)
-print("✓ Google Drive mounted at /content/gdrive")
+drive.mount('/content/drive', force_remount=False)
+print("✓ Google Drive mounted at /content/drive")
 
 # Verify GPU
 print("\n→ Checking GPU...")
@@ -84,6 +115,122 @@ else:
     print("  ✗ No GPU detected!")
 
 print("\n✅ GPU verification complete!")
+
+# -------------------------------------------------------------
+# IMPORTANT: For large workloads, DO NOT decode videos directly from
+# /content/drive/... because Drive FUSE can disconnect under heavy I/O.
+# Instead, copy dataset to /content and run locally in runtime disk.
+#
+# Source dataset layout (Drive):
+#   VSL_Data/
+#     Data.xlsx
+#     Videos/
+#
+# Local runtime destination:
+#   /content/VSL_Data_Runtime/
+#     Data.xlsx
+#     Videos/
+#
+# Smoke-test mode: copy only the first 100 videos first.
+# After the pipeline is stable, you can increase this limit or copy the full dataset.
+#
+# Recommended: create a shortcut in MyDrive named VSL_Data that contains:
+#   Data.xlsx
+#   Videos/
+# -------------------------------------------------------------
+from pathlib import Path
+import os
+
+LOCAL_DATA_ROOT = Path('/content/VSL_Data_Runtime')
+LOCAL_VIDEOS_DIR = LOCAL_DATA_ROOT / 'Videos'
+LOCAL_DATA_FILE = LOCAL_DATA_ROOT / 'Data.xlsx'
+VIDEO_COPY_LIMIT = 100
+LOCAL_DATA_ROOT.mkdir(parents=True, exist_ok=True)
+LOCAL_VIDEOS_DIR.mkdir(parents=True, exist_ok=True)
+
+# Optional manual override: set this if your shared folder has a custom name/path.
+# Example: SHARED_DATA_ROOT = Path('/content/drive/MyDrive/MyShortcutToSharedFolder')
+SHARED_DATA_ROOT = None
+
+candidate_roots = [
+  Path('/content/drive/MyDrive/VSL_Data'),
+  Path('/content/drive/MyDrive/Shared with me/VSL_Data'),
+  Path('/content/drive/Shareddrives/VSL_Data'),
+]
+if SHARED_DATA_ROOT is not None:
+  candidate_roots.insert(0, SHARED_DATA_ROOT)
+
+found_root = None
+for root in candidate_roots:
+  if (root / 'Data.xlsx').exists() and (root / 'Videos').exists():
+    found_root = root
+    break
+
+if found_root is None:
+  # Fallback search in MyDrive for a folder containing both Data.xlsx and Videos/
+  for candidate in Path('/content/drive/MyDrive').glob('**/Data.xlsx'):
+    root = candidate.parent
+    if (root / 'Videos').exists():
+      found_root = root
+      break
+
+if found_root is not None:
+  print("→ Copying dataset from Drive to local runtime (/content)...")
+  !cp "{found_root / 'Data.xlsx'}" "{LOCAL_DATA_FILE}"
+
+  # Copy only a small subset first to validate the notebook safely.
+  import openpyxl
+  wb = openpyxl.load_workbook(found_root / 'Data.xlsx', read_only=True)
+  ws = wb.active
+  copied = 0
+  for row in ws.iter_rows(min_row=2, values_only=True):
+    if not row or not row[0]:
+      continue
+    video_name = str(row[0])
+    candidate_names = [video_name]
+    if video_name.lower().endswith('.webm'):
+      candidate_names.append(video_name[:-5] + '.mp4')
+    elif video_name.lower().endswith('.mp4'):
+      candidate_names.append(video_name[:-4] + '.webm')
+
+    src = None
+    for name in candidate_names:
+      cand = found_root / 'Videos' / name
+      if cand.exists():
+        src = cand
+        break
+
+    if src is not None:
+      !cp "{src}" "{LOCAL_VIDEOS_DIR}/"
+      copied += 1
+    if copied >= VIDEO_COPY_LIMIT:
+      break
+  wb.close()
+
+  print("✓ Dataset copied to local runtime")
+  print(f"  Source root: {found_root}")
+  print(f"  Local Data.xlsx: {LOCAL_DATA_FILE}")
+  print(f"  Local Videos: {LOCAL_VIDEOS_DIR}")
+  print(f"  Video copy limit: {VIDEO_COPY_LIMIT}")
+
+  # Quick decode probe to fail fast if videos are unreadable.
+  import cv2
+  samples = list(LOCAL_VIDEOS_DIR.glob('*.mp4'))[:3] + list(LOCAL_VIDEOS_DIR.glob('*.webm'))[:3]
+  readable = 0
+  for sp in samples:
+    cap = cv2.VideoCapture(str(sp))
+    ok_open = cap.isOpened()
+    ok_frame, _ = cap.read()
+    cap.release()
+    readable += int(ok_open and ok_frame)
+  if samples:
+    print(f"  Decode probe: {readable}/{len(samples)} sample videos readable")
+  if samples and readable == 0:
+    raise RuntimeError("Local video decode probe failed. Check dataset encoding or copy status.")
+else:
+  print("⚠ Dataset not found in Drive.")
+  print("  Create a shortcut in MyDrive to the shared folder, or set SHARED_DATA_ROOT manually.")
+  print("  Required layout inside that folder: Data.xlsx and Videos/")
 ```
 
 **Expected Output** (A100):
@@ -94,6 +241,7 @@ print("\n✅ GPU verification complete!")
   Memory: 80.0 GB
   ✓ GPU tier: EXCELLENT (can run parallel training)
 ✅ GPU verification complete!
+✓ Dataset copied to /content/VSL_Data_Runtime
 ```
 
 ---
@@ -106,15 +254,36 @@ import sys
 import json
 import time
 from pathlib import Path
-import numpy as np
-import pandas as pd
+
+# If ABI is still broken, stop early with clear recovery instructions.
+try:
+  import numpy as np
+  import pandas as pd
+except Exception as e:
+  raise RuntimeError(
+    "numpy/pandas ABI mismatch in runtime. Re-run Cell 0, then Runtime -> Restart runtime, then run Cell 1->2. "
+    f"Original error: {e}"
+  )
+
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, TensorDataset
 
-# Setup paths
-sys.path.insert(0, '/content/VSL-Project/backend')
-BASE_DIR = Path('/content/VSL-Project')
+# Setup paths (Drive-first, runtime fallback)
+PROJECT_CANDIDATES = [
+  Path('/content/drive/MyDrive/VSL-Project'),
+  Path('/content/VSL-Project'),
+]
+BASE_DIR = next((p for p in PROJECT_CANDIDATES if p.exists()), None)
+if BASE_DIR is None:
+  raise RuntimeError('VSL-Project not found. Run Cell 0 first.')
+
+print("→ Verifying repository branch V1...")
+!git -C "{BASE_DIR}" fetch origin V1
+!git -C "{BASE_DIR}" checkout -B V1 origin/V1
+!git -C "{BASE_DIR}" pull --ff-only origin V1
+
+sys.path.insert(0, str(BASE_DIR / 'backend'))
 MODEL_DIR = BASE_DIR / 'backend' / 'models'
 BENCHMARK_DIR = BASE_DIR / 'benchmark'
 REPORT_DIR = BENCHMARK_DIR / 'reports'
@@ -125,7 +294,7 @@ REPORT_DIR.mkdir(parents=True, exist_ok=True)
 
 # Import training utilities
 from train_gpu import (
-    setup_gpu, load_data_mapping, extract_all, load_train_val,
+  setup_gpu, load_data_mapping, extract_all, prep_data,
     KEYPOINT_VARIANT, EPOCHS, BS, NF, SEQ, NRF
 )
 
@@ -137,8 +306,8 @@ print(f"\n✅ Utilities imported successfully!")
 
 **Expected Output**:
 ```
-✓ Base directory: /content/VSL-Project
-✓ Model directory: /content/VSL-Project/backend/models
+✓ Base directory: /content/drive/MyDrive/VSL-Project
+✓ Model directory: /content/drive/MyDrive/VSL-Project/backend/models
 ✓ Features: NF=4995, NRF=1662, SEQ=60, BS=32
 ✅ Utilities imported successfully!
 ```
@@ -152,38 +321,171 @@ print(f"\n✅ Utilities imported successfully!")
 ## **CELL 3: Load Data & Verify Integrity**
 
 ```python
-# Cell 3: Verify Data Integrity
-print("→ Loading data mapping...")
-label_map, mapping = load_data_mapping()
-print(f"✓ Loaded {len(mapping)} videos, {len(label_map)} classes")
+# Cell 3: Verify Data Integrity (repo at VSL-Project, data at VSL_Data)
+import os
+import json
+import time
+import numpy as np
+from pathlib import Path
+import train_gpu as tg
 
-print("\n→ Extracting/caching landmarks...")
-extract_all(mapping)
-print(f"✓ Landmarks ready (auto-cached)")
+def safe_exists(p: Path) -> bool:
+  try:
+    return p.exists()
+  except OSError:
+    return False
 
-print("\n→ Loading train/val split...")
-X_train, y_train, X_val, y_val, label_map, nc = load_train_val()
-print(f"✓ Train: {X_train.shape} (samples, seq, features)")
-print(f"✓ Val:   {X_val.shape}")
-print(f"✓ Classes: {nc}")
+def safe_mkdir(p: Path):
+  try:
+    p.mkdir(parents=True, exist_ok=True)
+  except OSError as e:
+    raise RuntimeError(f"Cannot create directory {p}: {e}")
 
-# Check for data leakage
-print("\n→ Checking data integrity...")
-print(f"  Train labels: {len(np.unique(y_train))} unique classes")
-print(f"  Val labels:   {len(np.unique(y_val))} unique classes")
-print(f"  Label distribution (train): {dict(zip(*np.unique(y_train, return_counts=True)))[:5]}... (showing first 5)")
+# Resolve project/data paths safely.
+PROJECT_CANDIDATES = [
+  Path('/content/drive/MyDrive/VSL-Project'),
+  Path('/content/VSL-Project'),
+]
+DATA_ROOT_CANDIDATES = [
+  Path('/content/VSL_Data_Runtime'),
+  Path('/content/drive/MyDrive/VSL_Data'),
+  Path('/content/VSL_Data'),
+]
 
-print("\n✅ Data integrity verified!")
+PROJECT_DIR = next((p for p in PROJECT_CANDIDATES if safe_exists(p)), None)
+DATA_ROOT = next((p for p in DATA_ROOT_CANDIDATES if safe_exists(p)), None)
 
-# Save data reference for later cells
+if PROJECT_DIR is None:
+  raise RuntimeError('VSL-Project not found. Run Cell 0 first.')
+if DATA_ROOT is None:
+  raise RuntimeError('VSL_Data not found. Run Cell 1 dataset copy step first.')
+
+VIDEOS_DIR = DATA_ROOT / 'Videos'
+DATA_FILE = DATA_ROOT / 'Data.xlsx'
+if not safe_exists(VIDEOS_DIR):
+  raise RuntimeError(f'Missing Videos directory: {VIDEOS_DIR}')
+if not safe_exists(DATA_FILE):
+  raise RuntimeError(f'Missing Data.xlsx file: {DATA_FILE}')
+
+# Override train_gpu globals to use VSL_Data
+tg.VIDEOS_DIR = VIDEOS_DIR
+tg.DATA_FILE = DATA_FILE
+tg.CUSTOM_VIDEOS_DIR = PROJECT_DIR / 'backend' / 'custom_videos'
+safe_mkdir(tg.CUSTOM_VIDEOS_DIR)
+
+# Store landmark cache in /content for better Colab runtime I/O stability.
+tg.LANDMARKS_DIR = Path('/content/landmarks_cache')
+safe_mkdir(tg.LANDMARKS_DIR)
+
+# Force no process pool: avoid Colab Drive Errno 107 in subprocess imports.
+tg.NW = 1
+
+print('Using PROJECT_DIR:', PROJECT_DIR)
+print('Using DATA_ROOT:', DATA_ROOT)
+print('Using VIDEOS_DIR:', tg.VIDEOS_DIR)
+print('Using DATA_FILE:', tg.DATA_FILE)
+print('Using LANDMARKS_DIR:', tg.LANDMARKS_DIR)
+
+print('\n→ Loading data mapping...')
+mapping = tg.load_data_mapping()
+if not mapping:
+  raise RuntimeError('No data mapping loaded. Check Data.xlsx format and video filenames.')
+print(f'✓ Loaded {len(mapping)} videos')
+
+print('\n→ Extracting/caching landmarks (sequential, no process pool)...')
+try:
+  import mediapipe as mp
+  with mp.solutions.holistic.Holistic(
+    model_complexity=2,
+    min_detection_confidence=0.7,
+    min_tracking_confidence=0.7,
+  ):
+    pass
+except Exception as e:
+  print(f'  ⚠ MediaPipe prewarm skipped: {e}')
+
+def extract_all_sequential(mapping_dict):
+  tasks = []
+  for fn in mapping_dict:
+    vp = None
+    for d in [tg.VIDEOS_DIR, tg.CUSTOM_VIDEOS_DIR]:
+      p = Path(d) / fn
+      if safe_exists(p):
+        vp = p
+        break
+    if vp is not None:
+      cp = tg.landmark_cache_path(fn, tg.KEYPOINT_VARIANT)
+      tasks.append((fn, vp, cp, tg.SEQ, tg.KEYPOINT_VARIANT))
+
+  cached = sum(1 for _, _, c, _, _ in tasks if safe_exists(c))
+  total = len(tasks)
+  todo = total - cached
+
+  print(f'[LM] Keypoint Variant: {tg.KEYPOINT_VARIANT.value} ({tg.VARIANT_CONFIG.name}, {tg.NRF} features)')
+  print(f'[LM] Total: {total}  Cached: {cached}  Todo: {todo}')
+  if todo <= 0:
+    return
+
+  uncached = [t for t in tasks if not safe_exists(t[2])]
+  ok, fail = 0, 0
+  t0 = time.time()
+
+  for i, t in enumerate(uncached, 1):
+    fn = t[0]
+    try:
+      _, success, reason = tg.extract_single_video(t)
+      if success:
+        ok += 1
+      else:
+        fail += 1
+        if reason:
+          print(f'  ✗ {fn}: {reason}')
+    except Exception as e:
+      fail += 1
+      print(f'  ✗ {fn}: {type(e).__name__}: {e}')
+
+    if i % 50 == 0 or i == len(uncached):
+      elapsed = max(time.time() - t0, 1e-6)
+      speed = i / elapsed
+      left = (len(uncached) - i) / max(speed, 1e-6)
+      print(f'  [{cached + i}/{total}] {speed:.2f} v/s  ~{left:.0f}s left')
+
+  print(f'[LM] Done! {ok} ok, {fail} fail ({time.time() - t0:.0f}s)')
+
+extract_all_sequential(mapping)
+
+# Fail fast when all videos fail extraction.
+npy_count = len(list(tg.LANDMARKS_DIR.glob('*.npy')))
+if npy_count == 0:
+  raise RuntimeError(
+    'No landmark cache files were created. '\
+    'Use local runtime dataset (/content/VSL_Data_Runtime) and verify video decode in Cell 1.'
+  )
+print('✓ Landmarks ready (auto-cached)')
+
+print('\n→ Loading train/val split...')
+X_train, y_train, X_val, y_val, label_map, nc = tg.prep_data(mapping)
+print(f'✓ Train: {X_train.shape} (samples, seq, features)')
+print(f'✓ Val:   {X_val.shape}')
+print(f'✓ Classes: {nc}')
+
+print('\n→ Checking data integrity...')
+print(f'  Train labels: {len(np.unique(y_train))} unique classes')
+print(f'  Val labels:   {len(np.unique(y_val))} unique classes')
+uniq, cnt = np.unique(y_train, return_counts=True)
+label_dist_preview = dict(list(zip(uniq.tolist(), cnt.tolist()))[:5])
+print(f'  Label distribution (train, first 5): {label_dist_preview}')
+
+print('\n✅ Data integrity verified!')
+
 np.save('/content/data_x_train.npy', X_train)
 np.save('/content/data_y_train.npy', y_train)
 np.save('/content/data_x_val.npy', X_val)
 np.save('/content/data_y_val.npy', y_val)
-with open('/content/data_label_map.json', 'w') as f:
-    json.dump(label_map, f, ensure_ascii=False, indent=2)
+with open('/content/data_label_map.json', 'w', encoding='utf-8') as f:
+  json.dump(label_map, f, ensure_ascii=False, indent=2)
 
-print("\n✓ Data saved to /content/ for other cells")
+print('\n✓ Data saved to /content/ for other cells')
 ```
 
 **Expected Output**:
@@ -221,12 +523,28 @@ with open('/content/data_label_map.json', 'r') as f:
 print(f"\n✓ Loaded data: Train {X_train.shape}, Val {X_val.shape}")
 
 # Import and run enhanced training
-%cd /content/VSL-Project/backend
+import runpy
 import sys
-sys.path.insert(0, '/content/VSL-Project/backend')
+backend_dir = BASE_DIR / 'backend'
+script_path = backend_dir / 'train_gpu_enhanced.py'
+
+# Ensure notebook is on V1 and script exists in selected BASE_DIR.
+!git -C "{BASE_DIR}" fetch origin V1
+!git -C "{BASE_DIR}" checkout -B V1 origin/V1
+
+if not script_path.exists():
+  alt = Path('/content/drive/MyDrive/VSL-Project/backend/train_gpu_enhanced.py')
+  raise FileNotFoundError(
+    f"Missing {script_path}. "
+    f"BASE_DIR={BASE_DIR}. "
+    f"If your repo is in Drive, check {alt}."
+  )
+
+%cd {backend_dir}
+sys.path.insert(0, str(backend_dir))
 
 # Run enhanced training (this does the actual training)
-exec(open('train_gpu_enhanced.py').read())
+runpy.run_path(str(script_path), run_name='__main__')
 ```
 
 **Expected Output**:
@@ -293,12 +611,27 @@ input_size = NF
 print(f"Data: Train {X_train.shape}, Val {X_val.shape}, Classes {nc}")
 
 # Run baseline training
-%cd /content/VSL-Project/backend
+import runpy
 import sys
-sys.path.insert(0, '/content/VSL-Project/backend')
+backend_dir = BASE_DIR / 'backend'
+script_path = backend_dir / 'train_baselines.py'
+
+!git -C "{BASE_DIR}" fetch origin V1
+!git -C "{BASE_DIR}" checkout -B V1 origin/V1
+
+if not script_path.exists():
+  alt = Path('/content/drive/MyDrive/VSL-Project/backend/train_baselines.py')
+  raise FileNotFoundError(
+    f"Missing {script_path}. "
+    f"BASE_DIR={BASE_DIR}. "
+    f"If your repo is in Drive, check {alt}."
+  )
+
+%cd {backend_dir}
+sys.path.insert(0, str(backend_dir))
 
 print("\n→ Starting baseline training...")
-exec(open('train_baselines.py').read())
+runpy.run_path(str(script_path), run_name='__main__')
 
 print("\n✅ Baseline models training complete!")
 ```
@@ -362,12 +695,27 @@ with open('/content/data_label_map.json', 'r') as f:
 print(f"\nData: Train {X_train.shape}, Val {X_val.shape}, Classes {len(label_map)}")
 
 # Run ablation training
-%cd /content/VSL-Project/backend
+import runpy
 import sys
-sys.path.insert(0, '/content/VSL-Project/backend')
+backend_dir = BASE_DIR / 'backend'
+script_path = backend_dir / 'train_ablation_variants.py'
+
+!git -C "{BASE_DIR}" fetch origin V1
+!git -C "{BASE_DIR}" checkout -B V1 origin/V1
+
+if not script_path.exists():
+  alt = Path('/content/drive/MyDrive/VSL-Project/backend/train_ablation_variants.py')
+  raise FileNotFoundError(
+    f"Missing {script_path}. "
+    f"BASE_DIR={BASE_DIR}. "
+    f"If your repo is in Drive, check {alt}."
+  )
+
+%cd {backend_dir}
+sys.path.insert(0, str(backend_dir))
 
 print("\n→ Starting ablation studies...")
-exec(open('train_ablation_variants.py').read())
+runpy.run_path(str(script_path), run_name='__main__')
 
 print("\n✅ Ablation studies complete!")
 ```
@@ -421,8 +769,19 @@ print("="*70)
 print("ON-DEVICE PERFORMANCE BENCHMARK")
 print("="*70)
 
-%cd /content/VSL-Project/backend
-exec(open('benchmark_ondevice.py').read())
+import runpy
+backend_dir = BASE_DIR / 'backend'
+script_path = backend_dir / 'benchmark_ondevice.py'
+
+if not script_path.exists():
+  alt = Path('/content/drive/MyDrive/VSL-Project/backend/benchmark_ondevice.py')
+  raise FileNotFoundError(
+    f"Missing {script_path}. "
+    f"BASE_DIR={BASE_DIR}. "
+    f"If your repo is in Drive, check {alt}."
+  )
+
+runpy.run_path(str(script_path), run_name='__main__')
 
 print("\n✅ On-device benchmark complete!")
 ```
@@ -455,8 +814,19 @@ print("="*70)
 print("DATASET STATISTICS ANALYSIS")
 print("="*70)
 
-%cd /content/VSL-Project/benchmark/scripts
-exec(open('analyze_dataset_stats.py').read())
+import runpy
+benchmark_scripts_dir = BASE_DIR / 'benchmark' / 'scripts'
+script_path = benchmark_scripts_dir / 'analyze_dataset_stats.py'
+
+if not script_path.exists():
+  alt = Path('/content/drive/MyDrive/VSL-Project/benchmark/scripts/analyze_dataset_stats.py')
+  raise FileNotFoundError(
+    f"Missing {script_path}. "
+    f"BASE_DIR={BASE_DIR}. "
+    f"If your repo is in Drive, check {alt}."
+  )
+
+runpy.run_path(str(script_path), run_name='__main__')
 
 print("\n✅ Dataset statistics complete!")
 ```
@@ -498,8 +868,19 @@ print("="*70)
 print("AGGREGATING ALL RESULTS")
 print("="*70)
 
-%cd /content/VSL-Project/benchmark/scripts
-exec(open('aggregate_all_results.py').read())
+import runpy
+benchmark_scripts_dir = BASE_DIR / 'benchmark' / 'scripts'
+script_path = benchmark_scripts_dir / 'aggregate_all_results.py'
+
+if not script_path.exists():
+  alt = Path('/content/drive/MyDrive/VSL-Project/benchmark/scripts/aggregate_all_results.py')
+  raise FileNotFoundError(
+    f"Missing {script_path}. "
+    f"BASE_DIR={BASE_DIR}. "
+    f"If your repo is in Drive, check {alt}."
+  )
+
+runpy.run_path(str(script_path), run_name='__main__')
 
 print("\n✅ Results aggregation complete!")
 print("\n" + "="*70)
@@ -558,27 +939,28 @@ BENCHMARK SUMMARY
 # Cell 10: Download Results to Local Machine
 import shutil
 from google.colab import files
+from pathlib import Path
 
 print("="*70)
 print("DOWNLOADING RESULTS")
 print("="*70)
 
 # Copy key results to downloads
-results_dir = Path('/content/VSL-Project/backend/models')
-reports_dir = Path('/content/VSL-Project/benchmark/reports')
+results_dir = BASE_DIR / 'backend' / 'models'
+reports_dir = BASE_DIR / 'benchmark' / 'reports'
 
 print("\n→ Preparing download files...")
 
 # Create zip for all model checkpoints
-!cd /content/VSL-Project && zip -r /tmp/all_models.zip backend/models -q
+!cd "{BASE_DIR}" && zip -r /tmp/all_models.zip backend/models -q
 print("✓ Created all_models.zip")
 
 # Create zip for all reports
-!cd /content/VSL-Project && zip -r /tmp/all_reports.zip benchmark/reports -q
+!cd "{BASE_DIR}" && zip -r /tmp/all_reports.zip benchmark/reports -q
 print("✓ Created all_reports.zip")
 
 # Also copy individual markdown summary
-!cp /content/VSL-Project/benchmark/reports/BENCHMARK_SUMMARY.md /tmp/BENCHMARK_SUMMARY.md
+!cp "{reports_dir / 'BENCHMARK_SUMMARY.md'}" /tmp/BENCHMARK_SUMMARY.md
 print("✓ Copied BENCHMARK_SUMMARY.md")
 
 print("\n→ Downloading files...")
@@ -590,11 +972,13 @@ files.download('/tmp/BENCHMARK_SUMMARY.md')
 
 print("\n✅ Downloads queued! Check your Downloads folder.")
 
-# Also backup to Google Drive
-print("\n→ Backing up to Google Drive...")
-!cp -r /content/VSL-Project/backend/models /content/gdrive/My\ Drive/VSL_Models_Final
-!cp -r /content/VSL-Project/benchmark/reports /content/gdrive/My\ Drive/VSL_Reports_Final
-print("✓ Backed up to Google Drive")
+# Sync results to Drive only after all jobs finish.
+print("\n→ Syncing final results back to Google Drive...")
+DRIVE_SYNC_ROOT = Path('/content/drive/MyDrive/VSL_Results_Final')
+DRIVE_SYNC_ROOT.mkdir(parents=True, exist_ok=True)
+!rsync -a "{results_dir}/" "{DRIVE_SYNC_ROOT / 'models'}/"
+!rsync -a "{reports_dir}/" "{DRIVE_SYNC_ROOT / 'reports'}/"
+print(f"✓ Synced to: {DRIVE_SYNC_ROOT}")
 
 print("\n" + "="*70)
 print("FINAL SUMMARY")
@@ -602,7 +986,7 @@ print("="*70)
 
 # Print final metrics
 try:
-    with open('/content/VSL-Project/benchmark/reports/BENCHMARK_RESULTS_COMPREHENSIVE.json', 'r') as f:
+  with open(reports_dir / 'BENCHMARK_RESULTS_COMPREHENSIVE.json', 'r') as f:
         results = json.load(f)
         print(f"\nBest Models:")
         for entry in results.get('summary_table', [])[:5]:
@@ -652,7 +1036,7 @@ print("FINAL BENCHMARK REPORT")
 print("="*70)
 
 # Read and display markdown report
-with open('/content/VSL-Project/benchmark/reports/BENCHMARK_SUMMARY.md', 'r') as f:
+with open(BASE_DIR / 'benchmark' / 'reports' / 'BENCHMARK_SUMMARY.md', 'r') as f:
     report = f.read()
 
 print(report)
@@ -729,7 +1113,7 @@ RUN_PARALLEL = False  # Force sequential
 ### **If checkpoint corrupt or model loading fails:**
 ```python
 # Restart from that phase with fresh GPU memory:
-%cd /content/VSL-Project/backend
+%cd {BASE_DIR / 'backend'}
 !rm -rf models/sign_model_best.pt
 # Re-run Cell 4
 ```

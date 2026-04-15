@@ -8,7 +8,7 @@ import multiprocessing as mp_proc
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from train_gpu import (
-    setup_gpu, load_data_mapping, extract_all, load_train_val,
+    setup_gpu, load_data_mapping, extract_all, prep_data,
     KEYPOINT_VARIANT, MODEL_DIR, EPOCHS, PAT, SWA_EP, MIXUP_ALPHA,
     BS, NF, SEQ, NRF, EXTRA_FEATURES, LR, WARM,
     mixup_data, mixup_criterion, topk_accuracy
@@ -194,9 +194,9 @@ def main():
     device = setup_gpu()
     
     print("[ABLATION] Loading data...")
-    label_map, mapping = load_data_mapping()
+    mapping = load_data_mapping()
     extract_all(mapping)
-    X_train, y_train, X_val, y_val, label_map, nc = load_train_val()
+    X_train, y_train, X_val, y_val, label_map, nc = prep_data(mapping)
     
     input_size = NF
     num_classes = nc

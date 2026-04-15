@@ -10,7 +10,7 @@ import torch
 # Import everything from the original train_gpu
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from train_gpu import (
-    setup_gpu, load_data_mapping, extract_all, load_train_val, eng_feat, 
+    setup_gpu, load_data_mapping, extract_all, prep_data, eng_feat, 
     KEYPOINT_VARIANT, MODEL_DIR, EPOCHS, PAT, SWA_EP, MIXUP_ALPHA,
     BS, NF, SEQ, NRF, EXTRA_FEATURES, HAS_HANDS_POSE, LR, WARM,
     SignModel, MultiHeadAttention, CosineClassifier,
@@ -27,9 +27,9 @@ def train_enhanced():
     
     # Load data
     print("[TRAIN] Loading data...")
-    label_map, mapping = load_data_mapping()
+    mapping = load_data_mapping()
     extract_all(mapping)
-    X_train, y_train, X_val, y_val, label_map, nc = load_train_val()
+    X_train, y_train, X_val, y_val, label_map, nc = prep_data(mapping)
     
     print(f"[TRAIN] Data loaded: Train {X_train.shape}, Val {X_val.shape}, Classes {nc}")
     

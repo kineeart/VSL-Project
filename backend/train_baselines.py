@@ -19,7 +19,7 @@ from train_gpu import (
     HAS_HANDS_POSE, MAX_DATA_ROWS, USE_FIXED_20_CLASSES, FIXED_CLASS_LIMIT,
     FIXED_20_FILES_WEBM, TARGET_SAMPLES_PER_CLASS, SPATIAL_AUG_PROB,
     SPATIAL_SCALE_MIN, SPATIAL_SCALE_MAX, SMOOTH_MOVE_PROB, RANDOM_SHIFT_PROB,
-    get_label_map, load_train_val, landmark_cache_path
+    prep_data, landmark_cache_path
 )
 from models_baseline import (
     SimpleLSTMBaseline, GRUBaseline, TransformerBaseline,
@@ -214,9 +214,9 @@ if __name__ == "__main__":
     device = setup_gpu()
     
     print("[BASELINE] Loading data...")
-    label_map, mapping = get_label_map()
+    mapping = load_data_mapping()
     extract_all(mapping)
-    X_train, y_train, X_val, y_val, label_map, nc = load_train_val()
+    X_train, y_train, X_val, y_val, label_map, nc = prep_data(mapping)
     
     num_classes = nc
     input_size = NF
