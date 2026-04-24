@@ -254,6 +254,30 @@ export default function TrainingPage() {
     }
   };
 
+  const deleteLabel = async (targetLabel) => {
+    const confirmed = window.confirm(t('training.deleteConfirm', { label: targetLabel }));
+    if (!confirmed) return;
+
+    setDownloadingLabel(targetLabel);
+    try {
+      const res = await fetch(`/api/train/custom/delete/${encodeURIComponent(targetLabel)}`, {
+        method: 'DELETE'
+      });
+      if (!res.ok) throw new Error('delete failed');
+
+      if (label.trim() === targetLabel) {
+        setLabel('');
+      }
+      setBatchMessage('');
+      setSaved(false);
+      await loadCustomList();
+    } catch {
+      setBatchMessage(t('training.deleteFailed'));
+    } finally {
+      setDownloadingLabel('');
+    }
+  };
+
   const startTraining = async () => {
     setTrainStatus('running');
     setTrainResult(null);
@@ -438,6 +462,13 @@ export default function TrainingPage() {
                       disabled={downloadingLabel === itemLabel}
                     >
                       {downloadingLabel === itemLabel ? '...' : t('training.downloadLabel')}
+                    </button>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => deleteLabel(itemLabel)}
+                      disabled={downloadingLabel === itemLabel}
+                    >
+                      {t('training.deleteLabel')}
                     </button>
                   </div>
                 </div>

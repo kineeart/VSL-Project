@@ -376,6 +376,36 @@ async def download_custom_label(label: str):
     }
     return StreamingResponse(buffer, media_type="application/zip", headers=headers)
 
+
+@app.delete("/api/train/custom/delete/{label}")
+async def delete_custom_label(label: str):
+    custom_file = CUSTOM_VIDEOS_DIR / "custom_labels.json"
+    if not custom_file.exists():
+        return JSONResponse(status_code=404, content={"error": "No custom videos found"})
+
+    with open(custom_file, encoding="utf-8") as f:
+        custom_labels = json.load(f)
+
+    matched_files = [
+        fname for fname, file_label in custom_labels.items()
+        if file_label == label
+    ]
+    if not matched_files:
+        return JSONResponse(status_code=404, content={"error": f"No videos found for label '{label}'"})
+
+    removed_files = []
+    for fname in matched_files:
+        file_path = CUSTOM_VIDEOS_DIR / fname
+        if file_path.exists():
+            file_path.unlink()
+            removed_files.append(fname)
+        custom_labels.pop(fname, None)
+
+    with open(custom_file, "w", encoding="utf-8") as f:
+        json.dump(custom_labels, f, ensure_ascii=False, indent=2)
+
+    return {"message": f"Deleted label '{label}'", "deleted_files": removed_files}
+
 @app.post("/api/train/start")
 async def start_training(data: dict = None):
     return JSONResponse(status_code=400,
