@@ -1,12 +1,19 @@
-import os, json, cv2, numpy as np, mediapipe as mp, openpyxl, base64, time
+import os, sys, json, cv2, numpy as np, openpyxl, base64, time
+from io import BytesIO
+from urllib.parse import quote
+from zipfile import ZIP_DEFLATED, ZipFile
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from pathlib import Path
 from fastapi import FastAPI, UploadFile, File, Form, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, StreamingResponse
 from contextlib import asynccontextmanager
+
+# Avoid mediapipe optional TensorFlow docs import from crashing when TensorFlow is broken.
+sys.modules.setdefault("tensorflow", None)
+import mediapipe as mp
 
 # Paths
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -336,6 +343,38 @@ async def list_custom_training():
         with open(custom_file) as f:
             return json.load(f)
     return {}
+
+
+@app.get("/api/train/custom/download/{label}")
+async def download_custom_label(label: str):
+    custom_file = CUSTOM_VIDEOS_DIR / "custom_labels.json"
+    if not custom_file.exists():
+        return JSONResponse(status_code=404, content={"error": "No custom videos found"})
+
+    with open(custom_file, encoding="utf-8") as f:
+        custom_labels = json.load(f)
+
+    matched_files = [
+        fname for fname, file_label in custom_labels.items()
+        if file_label == label and (CUSTOM_VIDEOS_DIR / fname).exists()
+    ]
+    if not matched_files:
+        return JSONResponse(status_code=404, content={"error": f"No videos found for label '{label}'"})
+
+    safe_label = "".join(ch if ch.isalnum() or ch in ("-", "_") else "_" for ch in label).strip("_") or "label"
+    archive_name = f"custom_videos_{safe_label}.zip"
+    buffer = BytesIO()
+    with ZipFile(buffer, "w", ZIP_DEFLATED) as zip_file:
+        for fname in matched_files:
+            zip_file.write(CUSTOM_VIDEOS_DIR / fname, arcname=fname)
+        label_map = {fname: custom_labels[fname] for fname in matched_files}
+        zip_file.writestr("custom_labels.json", json.dumps(label_map, ensure_ascii=False, indent=2))
+    buffer.seek(0)
+
+    headers = {
+        "Content-Disposition": f"attachment; filename*=UTF-8''{quote(archive_name)}"
+    }
+    return StreamingResponse(buffer, media_type="application/zip", headers=headers)
 
 @app.post("/api/train/start")
 async def start_training(data: dict = None):
